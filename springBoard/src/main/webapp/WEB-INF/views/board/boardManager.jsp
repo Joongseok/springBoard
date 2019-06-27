@@ -79,7 +79,7 @@ $(document).ready(function () {
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<div class="row">
 					<div class="col-sm-8 blog-main">
-					<form id="createFrm" class="navbar-form navbar-right" id="createfrm" action="/board/createBoard" method="post">
+					<form id="createFrm" class="navbar-form navbar-right" id="createfrm" action="/createBoard" method="post">
 						<input type="text" class="form-control" id="createBoardName" name="createBoardName" placeholder="게시판 이름">
 						<select class="form-control" id="create_use_yn">
 						  <option value="true">사용</option>
@@ -91,7 +91,7 @@ $(document).ready(function () {
 					</form>
 						<h2 class="sub-header">게시판관리</h2>
 						
-						<form id="frm" action="${pageContext.request.contextPath}/board/boardManager" method="post">
+						<form id="frm" action="${pageContext.request.contextPath}/boardManager" method="post">
 						</form>
 						
 						<div class="table-responsive">
@@ -122,10 +122,10 @@ $(document).ready(function () {
 <%-- 												</c:otherwise> --%>
 <%-- 											</c:choose> --%>
 											<td class="updateTd">
-												<form class="navbar-form navbar-right" class="updateBoard" action="/board/updateBoard" method="post">
+												<form class="navbar-form navbar-right" class="updateBoard" action="/updateBoard" method="post">
 													<select class="update_use_yn">
 													<c:choose>
-														<c:when test="${board.use_yn == 'true' }">
+														<c:when test="${board.use_yn eq 'true' }">
 															  <option value="true" selected="selected">사용</option>
 															  <option value="false">미사용</option>
 														  </c:when>

@@ -3,6 +3,7 @@ package kr.or.ddit.board.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -34,8 +35,9 @@ public class BoardController {
 		
 		List<BoardVO> boardList = boardService.boardList();
 		if(boardList != null) {
-			request.getSession().setAttribute("boardList", boardList);
-			request.getSession().setAttribute("boardAllList", boardService.boardAllList());
+			ServletContext application = request.getSession().getServletContext();
+			application.setAttribute("boardList", boardList);
+			application.setAttribute("boardAllList", boardService.boardAllList());
 		}
 		
 		return "board/boardManager";
@@ -61,8 +63,9 @@ public class BoardController {
 		
 		boardService.insertBoard(boardVo);
 		
-		request.getSession().setAttribute("boardList", boardService.boardList());
-		request.getSession().setAttribute("boardAllList", boardService.boardAllList());
+		ServletContext application = request.getSession().getServletContext();
+		application.setAttribute("boardList", boardService.boardList());
+		application.setAttribute("boardAllList", boardService.boardAllList());
 		
 		return "redirect:/board/boardManager";
 	}
@@ -78,16 +81,17 @@ public class BoardController {
 	* Method 설명 : 게시판 사용 여부 수정
 	*/
 	@RequestMapping(path = "/updateBoard", method = RequestMethod.POST)
-	public String updateBoard(String id, String updateUse_yn, HttpServletRequest request) {
+	public String updateBoard(String id, String use_yn, HttpServletRequest request) {
 		
 		int boardId = Integer.parseInt(id);
 		
 		BoardVO boardVo = boardService.getBoard(boardId);
-		boardVo.setUse_yn(updateUse_yn);
+		boardVo.setUse_yn(use_yn);
 		
 		boardService.updateBoard(boardVo);
-		request.getSession().setAttribute("boardList", boardService.boardList());
-		request.getSession().setAttribute("boardAllList", boardService.boardAllList());
+		ServletContext application = request.getSession().getServletContext();
+		application.setAttribute("boardList", boardService.boardList());
+		application.setAttribute("boardAllList", boardService.boardAllList());
 		
 		return "redirect:/board/boardManager";
 	}
