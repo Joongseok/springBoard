@@ -1,52 +1,48 @@
 package kr.or.ddit.notice.controller;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import kr.or.ddit.noti_comment.model.Noti_commentVO;
+import kr.or.ddit.noti_comment.service.INoti_CommentService;
 import kr.or.ddit.notice.model.NoticeVO;
 import kr.or.ddit.notice.service.INoticeService;
-import kr.or.ddit.notice.service.NoticeService;
+import kr.or.ddit.uploadFile.model.UploadFileVO;
+import kr.or.ddit.uploadFile.service.IUploadFileService;
 
-@WebServlet("/noticeController")
-public class NoticeController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@Controller
+public class NoticeController {
 	
+	@Resource(name = "noticeService")
 	private INoticeService noticeService;
 	
-	@Override
-	public void init() throws ServletException {
-		noticeService = new NoticeService();
-	}
+	@Resource(name = "noti_CommentService")
+	private INoti_CommentService ntcService;
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		// 해당 게시판의 번호
-		int id = Integer.parseInt(request.getParameter("id")); 
+	@Resource(name = "uploadFileService")
+	private IUploadFileService uploadFileService;
+	
+	
+	@RequestMapping(path = "/noticeController", method = RequestMethod.GET)
+	public String noticeController(String id, String page, String pageSize, HttpServletRequest request) {
+		int boardId = Integer.parseInt(id);
 		
-		String pageStr = request.getParameter("page"); 
-		String pageSizeStr = request.getParameter("pageSize"); 
+		int pages = page == null ? 1 : Integer.parseInt(page);
+		int pagesi = pageSize == null ? 10 : Integer.parseInt(pageSize);
 		
-		// 해당 페이지
-		int page = pageStr == null ? 1 : Integer.parseInt(pageStr);
-		
-		// 해당 페이지에 출력할 게시글 수
-		int pageSize = pageSizeStr == null ? 10 : Integer.parseInt(pageSizeStr);
-		
-		// Map 객체에 게시판 번호, 페이지, 출력할 게시글 수를 넣는다.
 		Map<String, Object> pageMap = new HashMap<String, Object>();
-		pageMap.put("id", id);
-		pageMap.put("page", page);
-		pageMap.put("pageSize", pageSize);
+		pageMap.put("id", boardId);
+		pageMap.put("page", pages);
+		pageMap.put("pageSize", pagesi);
 		
-		// 페이징처리한 리스트와 페이지의 수를 구함
 		Map<String, Object> resultMap = noticeService.noticePagingList(pageMap);
 		int paginationSize = (int) resultMap.get("paginationSize");
 		if (paginationSize == 0) {
@@ -58,8 +54,31 @@ public class NoticeController extends HttpServlet {
 		request.setAttribute("noticeList", noticeList);
 		request.setAttribute("paginationSize", paginationSize);
 		
-		// 게시글 페이징 리스트로 이동
-		request.getRequestDispatcher("/notice/noticePagingList.jsp").forward(request, response);
+		return "noticePagingList";
 	}
+	
+	@RequestMapping(path = "/noticeDetail", method = RequestMethod.GET)
+	public String NoticeDetail(String notiId, HttpServletRequest request) {
+		
+		int notiIds = Integer.parseInt(notiId);
+		
+		
+		// 서비스에서 한번에 처리하는 로직으로 바꾸기
+		NoticeVO noticeVo = noticeService.getNotice(notiIds);
+		
+		List<UploadFileVO> uploadFileList =  uploadFileService.getUploadFileList(notiIds);
+		
+		// 게시글 번호에 해당하는 댓글 리스트
+		List<Noti_commentVO> ntcList = ntcService.commentList(notiIds);
+				
+		request.setAttribute("noticeVo", noticeVo);
+		request.setAttribute("uploadFileList", uploadFileList);
+		request.setAttribute("ntcList", ntcList);
+		
+		// 조회 화면으로 이동
+		return "notice/noticeDetail";
+	}
+	
+		
 
 }
