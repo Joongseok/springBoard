@@ -30,7 +30,7 @@
 					<div class="col-sm-8 blog-main">
 						<h2 class="sub-header">답글 등록</h2>
 						<form id="frm" class="form-horizontal"
-							action="${pageContext.request.contextPath}/replyNotice"
+							action="${pageContext.request.contextPath}/notice/replyNotice"
 							method="post" role="form" enctype="multipart/form-data">
 							<div class="form-group">
 								<label for="userId" class="col-sm-2 control-label"></label>

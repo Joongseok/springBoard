@@ -12,29 +12,14 @@ import java.util.UUID;
 
 import javax.servlet.http.Part;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import kr.or.ddit.board.model.BoardVO;
 import kr.or.ddit.uploadFile.model.UploadFileVO;
 
 public class PartUtil {
 	private static final String UPLOAD_PATH = "d:"+ File.separator +"upload"+ File.separator;
-	static List<UploadFileVO> uploadFileList = new ArrayList<UploadFileVO>();
-	/**
-	* Method : getFileNameTest
-	* 작성자 : PC25
-	* 변경이력 :
-	* Method 설명 : 파일의 이름을 가져오는 메서드 테스트
-	*/
-	public static String getFileName(String contentDisposition) {
-		String[] splited = contentDisposition.split("; ");
-		String fileName = "";
-		for(String split : splited){
-			if (split.startsWith("filename")) {
-				String[] fileNames = split.split("=");
-				fileName = fileNames[1].substring(1, fileNames[1].length() - 1);
-			}
-		}
-		return fileName;
-	}
+	
 	/**
 	* Method : getExtTest
 	* 작성자 : PC25
@@ -56,8 +41,8 @@ public class PartUtil {
 	* @return
 	* Method 설명 : 해당하는 폴더가 없으면 생성해주는 메서드
 	*/
-	public static Map<String, Object> setMkdir(String boardName) {
-		
+	public static Map<String, Object> setMkdir() {
+		//년도에 해당하는 폴더가 있는지, 년도안에 월에 해당하는 폴더가 있는지
 		Date dt = new Date();
 		SimpleDateFormat yyyyMMSdf = new SimpleDateFormat("yyyyMM");
 		
@@ -67,23 +52,20 @@ public class PartUtil {
 		String mm = yyyyMM.substring(4, 6);
 		
 		String sp = File.separator;
-		File boardNameFolder = new File(UPLOAD_PATH + boardName);
-		if (!boardNameFolder.exists()) {
-			boardNameFolder.mkdir();
-		}
 		
-		File yyyyFolder = new File(UPLOAD_PATH + boardName + sp +  yyyy);
-		if (!yyyyFolder.exists()) {
+		File yyyyFolder = new File(UPLOAD_PATH + yyyy);
+		// 신규년도로 넘어갔을때 해당 년도의 폴더를 생성한다.
+		if(!yyyyFolder.exists()){
 			yyyyFolder.mkdir();
 		}
 		
-		File mmFolder = new File(UPLOAD_PATH  + boardName + sp + yyyy + sp + mm);
-		if (!mmFolder.exists()) {
+		//월에 해당하는 폴더가 있는지 확인
+		File mmFolder = new File(UPLOAD_PATH + yyyy + sp + mm);
+		if(!mmFolder.exists()){
 			mmFolder.mkdir();
 		}
 		
-		
-		String uploadPath = UPLOAD_PATH + boardName + sp + yyyy + sp + mm + sp;
+		String uploadPath = UPLOAD_PATH + yyyy + sp + mm;
 		File uploadFolder = new File(uploadPath);
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -92,47 +74,35 @@ public class PartUtil {
 		return resultMap;
 	}
 	
-	
 	/**
-	* Method : uploadFile
-	* 작성자 : PC25
+	* Method : getUploadFileList
+	* 작성자 : OWNER
 	* 변경이력 :
-	* @param file
-	* Method 설명 : 파일의 개수에 따라서 업로드 처리를 하는 메서드
-	 * @throws IOException 
+	* @param files
+	* @param notiId
+	* @return
+	* Method 설명 : multipartfile 배열을 매개로 받아서 단일/ 다중업로드 파일을 처리하는 메서드
 	*/
-	public static void uploadFile(List<Part> partList, BoardVO boardVo, int notiId) throws IOException {
-		
-		for(Part file : partList){
-			if (file != null && file.getSize() > 0 ) {
-				String contentDisposition = file.getHeader("content-disposition");
-				String fileName = PartUtil.getFileName(contentDisposition);
-				String ext = PartUtil.getExt(fileName);
-				
-				Map<String, Object> resultMap = PartUtil.setMkdir(boardVo.getName());
-				File uploadFolder = (File) resultMap.get("uploadFolder");
-				String uploadPath = (String) resultMap.get("uploadPath");
-				
-				if (uploadFolder.exists()) {
-					String filePath = uploadPath + UUID.randomUUID().toString() + ext; 
-					String fileId = filePath;
-					String path = uploadPath;
-					UploadFileVO uploadFile = new UploadFileVO(fileId, notiId, path, fileName);
-					uploadFileList.add(uploadFile);
-					file.write(filePath);
-					file.delete();
-				}
-			} 
-			
+	public static List<UploadFileVO> getUploadFileList(MultipartFile[] files, int notiId){
+		List<UploadFileVO> uploadFileList = new ArrayList<UploadFileVO>();
+		for (MultipartFile file : files) {
+			String fileName =  file.getOriginalFilename();
+			 String ext = PartUtil.getExt(fileName); 
+			 String sp = File.separator;
+			 Map<String, Object> resultMap = PartUtil.setMkdir(); 
+			 String uploadPath = (String)resultMap.get("uploadPath");
+			 String filePath = uploadPath + sp + UUID.randomUUID().toString() + ext; 
+			 String fileId = filePath;
+			 File uploadfile = new File(filePath);
+			 try {
+				 file.transferTo(uploadfile);
+			 } catch (IllegalStateException | IOException e) {
+				 e.printStackTrace();
+			 }
+			 UploadFileVO uploadFile = new UploadFileVO(fileId, notiId, uploadPath, fileName);
+			uploadFileList.add(uploadFile);
 		}
-	}
-	
-	public static List<UploadFileVO> uploadFileList(){
 		return uploadFileList;
 	}
-	
-	public static void uploadFileListClear(){
-		uploadFileList.clear();
-	}
-	
+		
 }

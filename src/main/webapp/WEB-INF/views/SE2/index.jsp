@@ -76,7 +76,7 @@ function validation(){
 </script>
 </head>
 <body>
-<form  action="${pageContext.request.contextPath}/noticeForm" method="post" id="frm" enctype="multipart/form-data">
+<form  action="${pageContext.request.contextPath}/notice/noticeForm" method="post" id="frm" enctype="multipart/form-data">
 	<div class="form-group">
 		<label for="title" class="col-sm-1 control-label">제목</label>
 		<div class="col-sm-10">

@@ -46,7 +46,7 @@
 						<h2 class="sub-header">게시글 등록</h2>
 
 						<form id="frm" class="form-horizontal"
-							action="${pageContext.request.contextPath}/noticeForm"
+							action="${pageContext.request.contextPath}/notice/noticeForm"
 							method="post" role="form" enctype="multipart/form-data">
 							<div class="form-group">
 								<label for="userId" class="col-sm-2 control-label"></label>

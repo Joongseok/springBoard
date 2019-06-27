@@ -51,7 +51,7 @@ public interface INoticeService {
 	* @return
 	* Method 설명 : 게시글 선택 조회
 	*/
-	NoticeVO getNotice(int notiId);
+	Map<String, Object> getNotice(int notiId);
 
 	/**
 	* Method : noticeMaxId

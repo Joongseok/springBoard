@@ -61,7 +61,7 @@
 						<h2 class="sub-header">${boardVo.name }</h2>
 						
 						<!-- 사용자 상세 조회 : userId가 필요 -->
-						<form id="frm" action="${pageContext.request.contextPath}/noticeDetail" method="get">
+						<form id="frm" action="${pageContext.request.contextPath}/notice/noticeDetail" method="get">
 							<input type="hidden" id="notiId" name="notiId">
 							<input type="hidden" id="del_yn" name="del_yn">
 						</form>
@@ -102,7 +102,7 @@
 							</table>
 						</div>
 
-					<a class="btn btn-default pull-right" href="${pageContext.request.contextPath }/noticeForm?id=${pageMap.id}">게시글 작성</a>
+					<a class="btn btn-default pull-right" href="${pageContext.request.contextPath }/notice/noticeForm?id=${pageMap.id}">게시글 작성</a>
 						<div class="text-center">
 								<!--  내가 현재 몇번째 페이지에 있는가? -->
 							 <ul class="pager">
@@ -112,8 +112,8 @@
 										<li class="disabled"><span>Previous</span></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="${pageContext.request.contextPath}/noticeController?page=${1}&pageSize=${pageMap.pageSize}&id=${pageMap.id}">«</a></li>
-										<li><a href="${pageContext.request.contextPath}/noticeController?page=${pageMap.page - 1 }&pageSize=${pageMap.pageSize}&id=${pageMap.id}">Previous</a></li>
+										<li><a href="${pageContext.request.contextPath}/notice/noticeController?page=${1}&pageSize=${pageMap.pageSize}&id=${pageMap.id}">«</a></li>
+										<li><a href="${pageContext.request.contextPath}/notice/noticeController?page=${pageMap.page - 1 }&pageSize=${pageMap.pageSize}&id=${pageMap.id}">Previous</a></li>
 									</c:otherwise>
 								</c:choose>
 									
@@ -124,7 +124,7 @@
 											<li class="active" ><span>${i }</span> </li>
 										</c:when>
 										<c:when test="${pageMap.page != i}">
-											<a href="${pageContext.request.contextPath}/noticeController?page=${i}&pageSize=${pageMap.pageSize}&id=${pageMap.id}">${i}</a>
+											<a href="${pageContext.request.contextPath}/notice/noticeController?page=${i}&pageSize=${pageMap.pageSize}&id=${pageMap.id}">${i}</a>
 										</c:when>
 									</c:choose>
 									</li>
@@ -136,8 +136,8 @@
 										<li class="disabled"><span>»</span></li>
 									</c:when>
 									<c:otherwise>
-										<li class="page-item" ><a href="${pageContext.request.contextPath}/noticeController?page=${pageMap.page + 1 }&pageSize=${pageMap.pageSize}&id=${pageMap.id}">next</a></li>
-										<li class="page-item" ><a href="${pageContext.request.contextPath}/noticeController?page=${paginationSize}&pageSize=${pageMap.pageSize}&id=${pageMap.id}">»</a></li>
+										<li class="page-item" ><a href="${pageContext.request.contextPath}/notice/noticeController?page=${pageMap.page + 1 }&pageSize=${pageMap.pageSize}&id=${pageMap.id}">next</a></li>
+										<li class="page-item" ><a href="${pageContext.request.contextPath}/notice/noticeController?page=${paginationSize}&pageSize=${pageMap.pageSize}&id=${pageMap.id}">»</a></li>
 									</c:otherwise>
 								</c:choose>
 							</ul>

@@ -100,7 +100,7 @@ $(document).ready(function (){
 									<label class="control-label">${comment.content} [${comment.userId }/ <fmt:formatDate value="${comment.reg_dt }" pattern="yyyy-MM-dd"/> ]</label>
 										
 										<c:if test="${comment.del_yn eq true && comment.userId eq USER_INFO.userId}">
-										<a href="${pageContext.request.contextPath }/deleteComment?notiId=${noticeVo.notiId}&userId=${USER_INFO.userId}&id=${comment.id}">
+										<a href="${pageContext.request.contextPath }/notice/deleteComment?notiId=${noticeVo.notiId}&userId=${USER_INFO.userId}&id=${comment.id}">
 										<button  type="button" class="btn btn-default">댓글 삭제</button> </a>
 										</c:if>
 										<br>
@@ -108,7 +108,7 @@ $(document).ready(function (){
 								</div>
 							</div>
 							</form>
-							<form id="commentForm"  class="form-horizontal" action="${pageContext.request.contextPath }/noti_comment" method="post">
+							<form id="commentForm"  class="form-horizontal" action="${pageContext.request.contextPath }/notice/noti_comment" method="post">
 								<div class="form-group">
 									<label for="userId" class="col-sm-2 control-label"></label>
 									<div class="col-sm-5">
@@ -121,10 +121,10 @@ $(document).ready(function (){
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-10">
 									<c:if test="${noticeVo.userId eq USER_INFO.userId }">
-										<a href="${pageContext.request.contextPath }/updateNotice?notiId=${noticeVo.notiId}"><button  type="button" class="btn btn-default">수정하기</button> </a>
-										<a href="${pageContext.request.contextPath }/deleteNotice?notiId=${noticeVo.notiId}"><button  type="button" class="btn btn-default">삭제하기</button> </a>
+										<a href="${pageContext.request.contextPath }/notice/updateNotice?notiId=${noticeVo.notiId}"><button  type="button" class="btn btn-default">수정하기</button> </a>
+										<a href="${pageContext.request.contextPath }/notice/deleteNotice?notiId=${noticeVo.notiId}"><button  type="button" class="btn btn-default">삭제하기</button> </a>
 									</c:if>
-										<a href="${pageContext.request.contextPath }/replyNotice?notiId=${noticeVo.notiId}"><button type="button" id="replyBtn" class="btn btn-default">답글</button> </a>
+										<a href="${pageContext.request.contextPath }/notice/replyNotice?notiId=${noticeVo.notiId}"><button type="button" id="replyBtn" class="btn btn-default">답글</button> </a>
 								</div>
 							</div>
 							<input type="hidden" id="userId" value="${USER_INFO.userId }"> 

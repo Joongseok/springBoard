@@ -2,9 +2,13 @@ package kr.or.ddit.noti_comment.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Noti_commentVO {
 	private int id;         //댓글아이디
 	private int notiId;     //게시글아이디
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd a hh:mm:ss")
 	private Date reg_dt;    //작성일시
 	private String userId;  //작성자
 	private String content; //내용

@@ -8,13 +8,25 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.or.ddit.noti_comment.dao.INoti_CommentDao;
+import kr.or.ddit.noti_comment.model.Noti_commentVO;
 import kr.or.ddit.notice.dao.INoticeDao;
 import kr.or.ddit.notice.model.NoticeVO;
+import kr.or.ddit.uploadFile.dao.IUploadFileDao;
+import kr.or.ddit.uploadFile.model.UploadFileVO;
 @Service
 public class NoticeService implements INoticeService {
 	
 	@Resource(name = "noticeDao")
 	private INoticeDao noticeDao;
+	
+	@Resource(name = "noti_commentDao")
+	private INoti_CommentDao noti_commentDao;
+	
+	@Resource(name = "uploadFileDao")
+	private IUploadFileDao uploadFileDao;
+	
+	
 	/**
 	* Method : noticeList
 	* 작성자 : PC25
@@ -84,8 +96,18 @@ public class NoticeService implements INoticeService {
 	* Method 설명 : 게시글 선택조회
 	*/
 	@Override
-	public NoticeVO getNotice(int notiId) {
-		return noticeDao.getNotice(notiId);
+	public Map<String, Object> getNotice(int notiId) {
+		NoticeVO noticeVo = noticeDao.getNotice(notiId);
+		List<UploadFileVO> uploadFileList =  uploadFileDao.getUploadFileList(notiId);
+		List<Noti_commentVO> ntcList = noti_commentDao.commentList(notiId);
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("noticeVo", noticeVo);
+		resultMap.put("uploadFileList", uploadFileList);
+		resultMap.put("ntcList", ntcList);
+		
+		
+		return resultMap;
 	}
 	/**
 	* Method : noticeMaxId

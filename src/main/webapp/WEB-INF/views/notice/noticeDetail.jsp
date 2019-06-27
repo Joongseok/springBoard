@@ -59,7 +59,7 @@ $(document).ready(function (){
 	<%@include file="/WEB-INF/views/common/header.jsp"%>
 	<div class="container-fluid">
 		<div class="row">
-
+			<c:set var="noticeVo" value="${notiDeatilMap.noticeVo }"/>
 			<%@include file="/WEB-INF/views/common/left.jsp"%>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<div class="row">
@@ -87,7 +87,7 @@ $(document).ready(function (){
 							<div class="form-group">
 							<label for="userId" class="col-sm-2 control-label">첨부파일</label>		
 								<div class="col-sm-8">
-								<c:forEach items="${uploadFileList}" var="file">
+								<c:forEach items="${notiDeatilMap.uploadFileList}" var="file">
 										<input type="hidden" class="hiddenFile" name="fileId" value="${file.fileId}">
 									<label class="fileLabel">${file.fileName }</label><br>
 								</c:forEach>
@@ -96,7 +96,7 @@ $(document).ready(function (){
 							<div class="form-group">
 								<label for="userId" class="col-sm-2 control-label">댓글</label>
 								<div class="col-sm-6">
-								<c:forEach items="${ntcList }" var="comment">
+								<c:forEach items="${notiDeatilMap.ntcList }" var="comment">
 									<label class="control-label">${comment.content} [${comment.userId }/ <fmt:formatDate value="${comment.reg_dt }" pattern="yyyy-MM-dd"/> ]</label>
 										
 										<c:if test="${comment.del_yn eq true && comment.userId eq USER_INFO.userId}">

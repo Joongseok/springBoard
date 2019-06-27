@@ -32,7 +32,7 @@
 				<div class="row">
 					<div class="col-sm-8 blog-main">
 						<h2 class="sub-header">게시글 수정</h2>
-						<form id="frm" class="form-horizontal" action="${pageContext.request.contextPath}/updateNotice" 
+						<form id="frm" class="form-horizontal" action="${pageContext.request.contextPath}/notice/updateNotice" 
 						method="post" role="form"
 						enctype="multipart/form-data"
 						>
