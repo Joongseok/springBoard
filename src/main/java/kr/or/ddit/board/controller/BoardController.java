@@ -3,6 +3,7 @@ package kr.or.ddit.board.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import kr.or.ddit.board.model.BoardVO;
 import kr.or.ddit.board.service.IBoardService;
 import kr.or.ddit.user.model.UserVO;
 
+@RequestMapping("board")
 @Controller
 public class BoardController {
 
@@ -28,13 +30,14 @@ public class BoardController {
 	* @return
 	* Method 설명 : 게시판 메인
 	*/
-	@RequestMapping(path = "boardManager", method = RequestMethod.GET)
+	@RequestMapping(path = "/boardManager", method = RequestMethod.GET)
 	public String boardManager(HttpServletRequest request) {
 		
 		List<BoardVO> boardList = boardService.boardList();
 		if(boardList != null) {
-			request.getSession().getServletContext().setAttribute("boardList", boardList);
-			request.getSession().getServletContext().setAttribute("boardAllList", boardService.boardAllList());
+			ServletContext application = request.getSession().getServletContext();
+			application.setAttribute("boardList", boardList);
+			application.setAttribute("boardAllList", boardService.boardAllList());
 		}
 		
 		return "board/boardManager";
@@ -51,7 +54,7 @@ public class BoardController {
 	* @return
 	* Method 설명 : 게시판 생성
 	*/
-	@RequestMapping(path = "createBoard", method = RequestMethod.POST)
+	@RequestMapping(path = "/createBoard", method = RequestMethod.POST)
 	public String createBoard(String createBoardName, String use_yn, HttpServletRequest request) {
 		
 		int id = boardService.boardsCnt() == 0 ? 1 : boardService.boardsCnt() + 1;
@@ -60,12 +63,24 @@ public class BoardController {
 		
 		boardService.insertBoard(boardVo);
 		
-		request.getSession().getServletContext().setAttribute("boardList", boardService.boardList());
-		request.getSession().getServletContext().setAttribute("boardAllList", boardService.boardAllList());
+		ServletContext application = request.getSession().getServletContext();
+		application.setAttribute("boardList", boardService.boardList());
+		application.setAttribute("boardAllList", boardService.boardAllList());
 		
-		return "redirect:boardManager";
+		return "redirect:/board/boardManager";
 	}
 	
+	/**
+	* Method : updateBoard
+	* 작성자 : PC25
+	* 변경이력 :
+	* @param id
+	* @param use_yn
+	* @param request
+	* @return
+	* Method 설명 : 게시판 사용 여부 수정
+	*/
+	@RequestMapping(path = "/updateBoard", method = RequestMethod.POST)
 	public String updateBoard(String id, String use_yn, HttpServletRequest request) {
 		
 		int boardId = Integer.parseInt(id);
@@ -74,10 +89,11 @@ public class BoardController {
 		boardVo.setUse_yn(use_yn);
 		
 		boardService.updateBoard(boardVo);
-		request.getSession().getServletContext().setAttribute("boardList", boardService.boardList());
-		request.getSession().getServletContext().setAttribute("boardAllList", boardService.boardAllList());
+		ServletContext application = request.getSession().getServletContext();
+		application.setAttribute("boardList", boardService.boardList());
+		application.setAttribute("boardAllList", boardService.boardAllList());
 		
-		return "redirect:boardManager";
+		return "redirect:/board/boardManager";
 	}
 	
 	

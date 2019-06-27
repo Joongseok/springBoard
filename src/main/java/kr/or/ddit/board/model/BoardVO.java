@@ -2,11 +2,15 @@ package kr.or.ddit.board.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class BoardVO {
 	private int id;         //게시판아이디
 	private String userId;  //생성자
 	private String name;    //게시판이름
 	private String use_yn;  //사용여부
+	
+	@DateTimeFormat(pattern =  "yyyy-MM-dd")
 	private Date reg_dt;	//생성일시
 	
 	public BoardVO() {

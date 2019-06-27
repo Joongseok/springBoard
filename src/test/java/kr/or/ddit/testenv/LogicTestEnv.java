@@ -14,23 +14,23 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({
-	 					"classpath:kr/or/ddit/config/spring/application-datasource.xml"
+	 					"classpath:kr/or/ddit/config/spring/application-datasource-dev.xml"
 	 					,"classpath:kr/or/ddit/config/spring/application-transaction.xml"
 	 					,"classpath:kr/or/ddit/config/spring/root-context.xml"
 })
 public class LogicTestEnv {
 	
-//	@Resource(name = "datasource")
-//	private DataSource datasource;
+	@Resource(name = "datasource")
+	private DataSource datasource;
 	
-//	@Before
-//	public void setup() {
-//		ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();
-//		rdp.setContinueOnError(false);
-//		rdp.addScript(new ClassPathResource("kr/or/ddit/testenv/dbInit.sql"));
-//		DatabasePopulatorUtils.execute(rdp, datasource);
-//	}
+	@Before
+	public void setup() {
+		ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();
+		rdp.setContinueOnError(false);
+		rdp.addScript(new ClassPathResource("kr/or/ddit/testenv/dbInit.sql"));
+		DatabasePopulatorUtils.execute(rdp, datasource);
+	}
 
-//	@Test
-//	public void dummy() {}
+	@Test
+	public void dummy() {}
 }
