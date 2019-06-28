@@ -82,7 +82,7 @@ public class BoardControllerTest extends ControllerTestEnv{
 		/***When***/
 		MvcResult mvcResult = mockMvc.perform(post("/board/updateBoard")
 									.param("id", "1")
-									.param("use_yn", "true")).andReturn();
+									.param("updateUse_yn", "true")).andReturn();
 		ModelAndView mav = mvcResult.getModelAndView();
 		String viewName = mav.getViewName();
 		/***Then***/

@@ -78,11 +78,11 @@ public class BoardController {
 	* Method 설명 : 게시판 사용 여부 수정
 	*/
 	@RequestMapping(path = "/updateBoard", method = RequestMethod.POST)
-	public String updateBoard(String id, String updateUse_yn, HttpServletRequest request) {
+	public String updateBoard(int id, String updateUse_yn, HttpServletRequest request) {
 		
-		int boardId = Integer.parseInt(id);
+//		int boardId = Integer.parseInt(id);
 		
-		BoardVO boardVo = boardService.getBoard(boardId);
+		BoardVO boardVo = boardService.getBoard(id);
 		boardVo.setUse_yn(updateUse_yn);
 		
 		boardService.updateBoard(boardVo);

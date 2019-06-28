@@ -95,13 +95,6 @@ public class NoticeVO {
 		this.notiId = notiId;
 	}
 
-	public String getUserid() {
-		return userId;
-	}
-
-	public void setUserid(String userid) {
-		this.userId = userid;
-	}
 
 	public String getTitle() {
 		return title;

@@ -225,7 +225,7 @@ public class NoticeController {
 	* @return
 	* Method 설명 : 사용자 수정 요청화면
 	*/
-	@RequestMapping(path = "updateNotice", method = RequestMethod.GET)
+	@RequestMapping(path = "/updateNotice", method = RequestMethod.GET)
 	public String updateNotice(int notiId, Model model) {
 		
 		Map<String, Object> map = noticeService.getNotice(notiId);
@@ -246,7 +246,7 @@ public class NoticeController {
 	 * @return
 	 * Method 설명 : 사용자 수정 응답화면
 	 */
-	@RequestMapping(path = "updateNotice", method = RequestMethod.GET)
+	@RequestMapping(path = "/updateNotice", method = RequestMethod.POST)
 	public String updateNoticePost(String[] deleteFileId, int notiId, String title, 
 					String smarteditor, Model model,MultipartFile[] files
 					,RedirectAttributes redirectAttributes) {

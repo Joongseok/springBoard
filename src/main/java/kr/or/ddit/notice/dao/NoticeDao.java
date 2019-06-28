@@ -33,7 +33,7 @@ public class NoticeDao implements INoticeDao {
 	* 변경이력 :
 	* @param boardVo
 	* @return
-	* Method 설명 : 게시판의 번호를 출력하는 메서드
+	* Method 설명 : 게시판의 번호에 해당하는 게시글을 출력하는 메서드
 	*/
 	@Override
 	public int noticeCnt(int id) {

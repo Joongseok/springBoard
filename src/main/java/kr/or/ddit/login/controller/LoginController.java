@@ -36,7 +36,7 @@ public class LoginController {
 			session.setAttribute("USER_INFO", userVo);
 			session.setAttribute("boardAllList", boardService.boardAllList());
 			session.setAttribute("boardList", boardService.boardList());
-			return "main";
+			return "tiles.main";
 		}else {
 			model.addAttribute("userId", userId);
 			return "login/login";

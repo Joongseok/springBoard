@@ -39,7 +39,7 @@ public class LoginControllerTest extends ControllerTestEnv{
 		
 		String viewName = mav.getViewName();
 		
-		assertEquals("main", viewName);
+		assertEquals("tiles.main", viewName);
 	}
 		
 	
