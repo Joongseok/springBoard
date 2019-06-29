@@ -38,7 +38,7 @@ public class BoardController {
 			request.getSession().setAttribute("boardAllList", boardService.boardAllList());
 		}
 		
-		return "board/boardManager";
+		return "tiles.boardManager";
 	}
 	
 	

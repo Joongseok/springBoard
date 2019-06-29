@@ -2,68 +2,56 @@ package kr.or.ddit.uploadFile.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.util.Map;
 
-import javax.servlet.ServletException;
+import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.AbstractView;
+
 import kr.or.ddit.uploadFile.model.UploadFileVO;
 import kr.or.ddit.uploadFile.service.IUploadFileService;
-import kr.or.ddit.uploadFile.service.UploadFileService;
 
-@WebServlet("/fileDownload")
-@MultipartConfig(maxFileSize=1024*1024*3, maxRequestSize=1024*1024*15)
-public class FileDownload extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+@RequestMapping("/fileDownload")
+@Controller
+public class FileDownload extends AbstractView {
+   
+	@Resource(name = "uploadFileService")
 	private IUploadFileService fileService;
-	
+
 	@Override
-	public void init() throws ServletException {
-		fileService = new UploadFileService();
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		
-		// 인코딩
-		request.setCharacterEncoding("UTF-8");
-	
-		// 다운로드할 첨부파일 아이디
-		String fileId = request.getParameter("fileId");
-		
-		// 아이디에 맞는 정보를 담은 첨부파일 객체
-		UploadFileVO fileVo = fileService.getFileVo(fileId);
-		
-		// 첨부파일 이름
-		String fileName = fileVo.getFileName();
-		
-		response.setContentType("application/octet-stream");
-		
-		// 다운로드할 첨부파일 이름 설정
-		response.setHeader("Content-Disposition", "attachment;filename="+fileName);
-		
-		// 파일 객체 생성
-		File file = new File(fileId);
-		FileInputStream fileInputStream = new FileInputStream(file);
-		ServletOutputStream servletOutputStream = response.getOutputStream();
-		
-		byte[] b = new byte[1024];
-		int data = 0;
-		
-		while((data=(fileInputStream.read(b,0,b.length))) != -1){
-			servletOutputStream.write(b,0,data);
-		}
-		
-		servletOutputStream.flush();
-		servletOutputStream.close();
-		fileInputStream.close();
+			String fileId = (String) model.get("fileId");
+			// 아이디에 맞는 정보를 담은 첨부파일 객체
+			UploadFileVO fileVo = fileService.getFileVo(fileId);
+			
+			// 첨부파일 이름
+			String fileName = fileVo.getFileName();
+			
+			
+			// 다운로드할 첨부파일 이름 설정
+			response.setHeader("Content-Disposition", "attachment;filename="+fileName);
+			response.setContentType("application/octet-stream");
+			
+			// 파일 객체 생성
+			File file = new File(fileId);
+			FileInputStream fis = new FileInputStream(file);
+			ServletOutputStream sos = response.getOutputStream();
+			
+			byte[] buff = new byte[1024];
+			int len = -1;
+			
+			while( (len = fis.read(buff)) != -1 ){
+				sos.write(buff);
+			}
+			
+			sos.close();
+			fis.close();
 	}
 }

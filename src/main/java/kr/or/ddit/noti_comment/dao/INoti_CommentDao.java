@@ -20,7 +20,7 @@ public interface INoti_CommentDao {
 	* 작성자 : PC25
 	* 변경이력 :
 	* @return
-	* Method 설명 : 댓글의 마지막 번호
+	* Method 설명 : 댓글의 마지막 번호 + 1
 	*/
 	int commentMaxId();
 

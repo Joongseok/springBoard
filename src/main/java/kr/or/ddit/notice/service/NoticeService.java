@@ -43,6 +43,9 @@ public class NoticeService implements INoticeService {
 		
 		int pageSize = (int) pageMap.get("pageSize");
 		int paginationSize = (int) Math.ceil((double)noticeCnt/pageSize);
+		if (paginationSize == 0) {
+			paginationSize = 1;
+		}
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("noticeList", noticeList);

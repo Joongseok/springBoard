@@ -12,4 +12,34 @@
 		<put-attribute name="body" value="/WEB-INF/views/main.jsp"/>
 	</definition>
 	
+	<!-- boardManager -->
+	<definition name="tiles.boardManager" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/board/boardManager.jsp"/>
+	</definition>
+	
+	<!-- noticePagingList -->
+	<definition name="tiles.noticePagingList" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/notice/noticePagingList.jsp"/>
+	</definition>
+	
+	<!-- noticePagingList -->
+	<definition name="tiles.noticeDetail" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/notice/noticeDetail.jsp"/>
+	</definition>
+	
+	<!-- noticePagingList -->
+	<definition name="tiles.noticeForm" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/notice/noticeForm.jsp"/>
+	</definition>
+	
+	<!-- noticePagingList -->
+	<definition name="tiles.replyNotice" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/notice/replyNotice.jsp"/>
+	</definition>
+	
+	<!-- noticePagingList -->
+	<definition name="tiles.updateNotice" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/notice/updateNotice.jsp"/>
+	</definition>
+	
 </tiles-definitions>

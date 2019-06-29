@@ -1,4 +1,4 @@
-package kr.or.ddit.notice.dao;
+package kr.or.ddit.notice.service;
 
 import static org.junit.Assert.*;
 
@@ -10,13 +10,14 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 
+import kr.or.ddit.noti_comment.model.Noti_commentVO;
 import kr.or.ddit.notice.model.NoticeVO;
 import kr.or.ddit.testenv.LogicTestEnv;
 
-public class NoticeDaoTest extends LogicTestEnv{
+public class NoticeServiceTest extends LogicTestEnv{
 
-	@Resource(name = "noticeDao")
-	private INoticeDao noticeDao;
+	@Resource(name = "noticeService")
+	private INoticeService noticeService;
 	
 	/**
 	* Method : noticeList
@@ -33,9 +34,13 @@ public class NoticeDaoTest extends LogicTestEnv{
 		pageMap.put("id", 1);
 		pageMap.put("page", 1);
 		pageMap.put("pageSize", 10);
-		List<NoticeVO> noticeList =  noticeDao.noticePagingList(pageMap);
+		Map<String, Object> resultMap =  noticeService.noticePagingList(pageMap);
+		
+		int paginationSize = (int) resultMap.get("paginationSize");
+		List<NoticeVO> noticeList = (List<NoticeVO>) resultMap.get("noticeList");
 		/***Then***/
 		assertEquals(10, noticeList.size());
+		assertEquals(2, paginationSize);
 	}
 	
 	/**
@@ -50,7 +55,7 @@ public class NoticeDaoTest extends LogicTestEnv{
 	public void noticeCntTest() {
 		/***Given***/
 		/***When***/
-		int noticeCnt = noticeDao.noticeCnt(1);
+		int noticeCnt = noticeService.noticeCnt(1);
 		/***Then***/
 		assertEquals(13, noticeCnt);
 	}
@@ -68,7 +73,7 @@ public class NoticeDaoTest extends LogicTestEnv{
 		/***Given***/
 		/***When***/
 		NoticeVO noticeVo = new NoticeVO(14, "brown", "테스트 제목 14", "테스트 내용 14", 1, 14);
-		int result = noticeDao.insertNotice(noticeVo);
+		int result = noticeService.insertNotice(noticeVo);
 		/***Then***/
 		assertEquals(1, result);
 	}
@@ -84,7 +89,7 @@ public class NoticeDaoTest extends LogicTestEnv{
 	public void noticeAllCntTest() {
 		/***Given***/
 		/***When***/
-		int noticeAllCnt = noticeDao.noticeAllCnt();
+		int noticeAllCnt = noticeService.noticeAllCnt();
 		/***Then***/
 		assertEquals(13, noticeAllCnt);
 	}
@@ -101,10 +106,13 @@ public class NoticeDaoTest extends LogicTestEnv{
 	public void getNoticeTest() {
 		/***Given***/
 		/***When***/
-		NoticeVO noticeVo = noticeDao.getNotice(1);
+		Map<String, Object> resultMap = noticeService.getNotice(1);
+		NoticeVO noticeVo = (NoticeVO) resultMap.get("noticeVo");
+		List<Noti_commentVO> noti_commentList = (List<Noti_commentVO>) resultMap.get("ntcList"); 
 		/***Then***/
 		assertNotNull(noticeVo);
 		assertEquals("brown", noticeVo.getUserId());
+		assertEquals(1, noti_commentList.size());
 	}
 	
 	/**
@@ -118,7 +126,7 @@ public class NoticeDaoTest extends LogicTestEnv{
 	public void noticeMaxIdTest() {
 		/***Given***/
 		/***When***/
-		int noticeMaxId = noticeDao.noticeMaxId();
+		int noticeMaxId = noticeService.noticeMaxId();
 		/***Then***/
 		assertEquals(14, noticeMaxId);
 	}
@@ -136,7 +144,7 @@ public class NoticeDaoTest extends LogicTestEnv{
 		/***Given***/
 		/***When***/
 		NoticeVO noticeVo = new NoticeVO(1, "테스트 제목 수정", "테스트 내용 수정");
-		int result = noticeDao.updateNotice(noticeVo);
+		int result = noticeService.updateNotice(noticeVo);
 		/***Then***/
 		assertEquals(1, result);
 	}
@@ -153,7 +161,7 @@ public class NoticeDaoTest extends LogicTestEnv{
 	public void deleteNoticeTest() {
 		/***Given***/
 		/***When***/
-		int result = noticeDao.deleteNotice(1);
+		int result = noticeService.deleteNotice(1);
 		/***Then***/
 		assertEquals(1, result);
 	}
@@ -171,7 +179,7 @@ public class NoticeDaoTest extends LogicTestEnv{
 		/***Given***/
 		/***When***/
 		NoticeVO reply = new NoticeVO(14, "sally", "테스트 답글", "테스트 답글내용", 1, 1, 1);
-		int result = noticeDao.replyNotice(reply);
+		int result = noticeService.replyNotice(reply);
 		/***Then***/
 		assertEquals(1, result);
 	}

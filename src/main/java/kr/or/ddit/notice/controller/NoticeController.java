@@ -20,6 +20,7 @@ import kr.or.ddit.noti_comment.model.Noti_commentVO;
 import kr.or.ddit.noti_comment.service.INoti_CommentService;
 import kr.or.ddit.notice.model.NoticeVO;
 import kr.or.ddit.notice.service.INoticeService;
+import kr.or.ddit.paging.model.PageVO;
 import kr.or.ddit.uploadFile.model.UploadFileVO;
 import kr.or.ddit.uploadFile.service.IUploadFileService;
 import kr.or.ddit.user.model.UserVO;
@@ -43,39 +44,35 @@ public class NoticeController {
 	
 	/**
 	* Method : noticeController
-	* 작성자 : OWNER
+	* 작성자 : PC25
 	* 변경이력 :
 	* @param id
-	* @param page
-	* @param pageSize
-	* @param request
+	* @param pageVo
+	* @param model
 	* @return
 	* Method 설명 : 게시글 페이징 리스트
 	*/
 	@RequestMapping(path = "/noticeController", method = RequestMethod.GET)
-	public String noticeController(String id, String page, String pageSize, Model model) {
-		int boardId = Integer.parseInt(id);
+	public String noticeController(int id, PageVO pageVo, Model model) {
 		
-		int pages = page == null ? 1 : Integer.parseInt(page);
-		int pagesi = pageSize == null ? 10 : Integer.parseInt(pageSize);
 		
 		Map<String, Object> pageMap = new HashMap<String, Object>();
-		pageMap.put("id", boardId);
-		pageMap.put("page", pages);
-		pageMap.put("pageSize", pagesi);
+		pageMap.put("id", id);
+		pageMap.put("page", pageVo.getPage());
+		pageMap.put("pageSize", pageVo.getPageSize());
+		
 		
 		Map<String, Object> resultMap = noticeService.noticePagingList(pageMap);
 		int paginationSize = (int) resultMap.get("paginationSize");
-		if (paginationSize == 0) {
-			paginationSize = 1;
-		}
+		
 		List<NoticeVO> noticeList = (List<NoticeVO>) resultMap.get("noticeList");
 		
 		model.addAttribute("pageMap", pageMap);
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("paginationSize", paginationSize);
+		model.addAttribute("boardVo", boardService.getBoard(id));
 		
-		return "notice/noticePagingList";
+		return "tiles.noticePagingList";
 	}
 	
 	/**
@@ -94,7 +91,7 @@ public class NoticeController {
 		model.addAttribute("notiDeatilMap", notiDeatilMap);
 		
 		// 조회 화면으로 이동
-		return "notice/noticeDetail";
+		return "tiles.noticeDetail";
 	}
 	
 	/**
@@ -109,7 +106,7 @@ public class NoticeController {
 		
 		// 게시판 번호
 		model.addAttribute("id", id);
-		return "notice/noticeForm";
+		return "tiles.noticeForm";
 	}
 	
 	/**
@@ -179,7 +176,7 @@ public class NoticeController {
 	public String replyNoticeGet(int notiId, Model model) {
 		
 		model.addAttribute("notiId", notiId);
-		return "notice/replyNotice";
+		return "tiles.replyNotice";
 	}
 	
 	/**
@@ -213,7 +210,7 @@ public class NoticeController {
 		}
 		
 		model.addAttribute("notiId", notiId);
-		return "notice/replyNotice";
+		return "tiles.replyNotice";
 	}
 	
 	/**
@@ -234,7 +231,7 @@ public class NoticeController {
 		
 		model.addAttribute("noticeVo", noticeVo);
 		model.addAttribute("fileList", fileList);
-		return "notice/updateNotice";
+		return "tiles.updateNotice";
 	}
 	
 	/**
@@ -252,9 +249,10 @@ public class NoticeController {
 					,RedirectAttributes redirectAttributes) {
 		
 		List<UploadFileVO> dbUploadFileList = new ArrayList<UploadFileVO>();
-		for(String fileid : deleteFileId)
-			if (fileid !=null) 
-				dbUploadFileList.add(uploadFileService.getFileVo(fileid));
+		if(deleteFileId != null)
+			for(String fileid : deleteFileId)
+				if (fileid !=null) 
+					dbUploadFileList.add(uploadFileService.getFileVo(fileid));
 		
 		if (dbUploadFileList.size() != 0) 
 			uploadFileService.dbDeleteFile(dbUploadFileList);

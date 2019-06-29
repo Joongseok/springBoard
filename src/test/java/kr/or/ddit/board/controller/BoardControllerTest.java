@@ -36,7 +36,7 @@ public class BoardControllerTest extends ControllerTestEnv{
 		ModelAndView mav = mvcResult.getModelAndView();
 		String viewName = mav.getViewName();
 		/***Then***/
-		assertEquals("board/boardManager", viewName);
+		assertEquals("tiles.boardManager", viewName);
 	}
 	
 	/**
