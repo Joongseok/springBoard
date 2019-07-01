@@ -90,7 +90,7 @@ function validation(){
 	<img alt="" id="pp" src="${pageContext.request.contextPath }/img/plus.png">
 	
 	<input type="hidden" id="count" >
-	<input type="hidden" name="id" value="${id }">
+	<input type="hidden" id="hid" name="id" value="${id }">
 	<input type="hidden" id="userId" value="${USER_INFO.userId}">
 	<input type="button" class="col-sm-1 btn btn-default" id="savebutton" value="등록" />
 </form>

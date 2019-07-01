@@ -6,6 +6,8 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 
+	<!-- component-scan을 default-filters를 false로 줘서
+		 Service와 Repository만 스캔한다 -->
 	<context:component-scan base-package="kr.or.ddit" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>

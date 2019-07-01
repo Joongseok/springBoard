@@ -14,9 +14,13 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ddit.board.model.BoardVO;
@@ -63,7 +67,9 @@ public class NoticeControllerTest extends ControllerTestEnv{
 		MvcResult mvcResult = mockMvc.perform(get("/notice/noticeController")
 									.param("id", "1")
 									.requestAttr("pageVo", new PageVO())
-									.param("pageSize", "0")).andReturn();
+									.param("pageSize", "0")
+									.param("search", "1")
+									.param("selected", "title")).andReturn();
 		ModelAndView mav = mvcResult.getModelAndView();
 		String viewName = mav.getViewName();
 		Map<String, Object> pageMap = (Map<String, Object>) mav.getModelMap().get("pageMap");
@@ -78,10 +84,12 @@ public class NoticeControllerTest extends ControllerTestEnv{
 		assertEquals(id, 1);
 		assertEquals(page, 1);
 		assertEquals(pageSize, 10);
-		assertEquals(2, paginationSize);
-		assertEquals(10, noticeList.size());
+		assertEquals(1, paginationSize);
+		assertEquals(5, noticeList.size());
 		assertEquals("자유 게시판", boardVo.getName());
 	}
+	
+	
 	
 	/**
 	* Method : NoticeDetail
@@ -140,10 +148,13 @@ public class NoticeControllerTest extends ControllerTestEnv{
 	@Test
 	public void NoticeFormPostTest() throws Exception {
 		/***Given***/
+		File f = new File("src/test/resources/kr/or/ddit/testenv/sally.png");
+		MockMultipartFile files = new MockMultipartFile("profile", f.getName(), "", new FileInputStream(f));
+		
 		/***When***/
 		UserVO userVo = new UserVO();
 		userVo.setUserId("brown");
-		MvcResult mvcResult = mockMvc.perform(post("/notice/noticeForm")
+		MvcResult mvcResult = mockMvc.perform(fileUpload("/notice/noticeForm").file(files)
 									.param("id", "1")
 									.param("title", "테스트 제목")
 									.param("smarteditor", "테스트내용")
@@ -155,7 +166,7 @@ public class NoticeControllerTest extends ControllerTestEnv{
 		String notiId =(String) mav.getModelMap().get("notiId");
 		/***Then***/
 		assertEquals("14", notiId);
-		assertEquals("redirect:/notice/noticeForm", viewName);
+		assertEquals("redirect:/notice/noticeDetail", viewName);
 	}
 	
 	/**
@@ -204,6 +215,7 @@ public class NoticeControllerTest extends ControllerTestEnv{
 		assertEquals(1, notiId);
 	}
 	
+	private static final Logger logger = LoggerFactory.getLogger(NoticeControllerTest.class);
 	/**
 	 * Method : replyNoticeGet
 	 * 작성자 : OWNER
@@ -229,10 +241,11 @@ public class NoticeControllerTest extends ControllerTestEnv{
 										.sessionAttr("USER_INFO", userVo)).andReturn();
 		ModelAndView mav = mvcResult.getModelAndView();
 		String viewName = mav.getViewName();
-		int notiId = (int) mav.getModelMap().get("notiId");
+		String notiId = (String) mav.getModelMap().get("notiId");
+		logger.debug("notiid : {}", notiId);
 		/***Then***/
-		assertEquals("tiles.replyNotice", viewName);
-		assertEquals(1, notiId);
+		assertEquals("redirect:/notice/noticeDetail", viewName);
+		assertEquals("14", notiId);
 	}
 	
 	/**
@@ -274,9 +287,9 @@ public class NoticeControllerTest extends ControllerTestEnv{
 	@Test
 	public void updateNoticePostTest() throws Exception {
 		/***Given***/
-		/***When***/
 		File f = new File("src/test/resources/kr/or/ddit/testenv/sally.png");
 		MockMultipartFile files = new MockMultipartFile("profile", f.getName(), "", new FileInputStream(f));
+		/***When***/
 		MvcResult mvcResult = mockMvc.perform(fileUpload("/notice/updateNotice").file(files).file(files)
 				.param("title", "테스트 수정 제목")
 				.param("notiId", "1")

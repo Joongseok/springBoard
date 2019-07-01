@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<!-- DTD 정보는 https://tiles.apache.org/framework/tiles-core/dtddoc/tiles-config_3_0.dtd.html를 참조 -->
+
+
 <tiles-definitions>
 	<definition name="layout" template="/WEB-INF/views/common/layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
@@ -22,24 +25,29 @@
 		<put-attribute name="body" value="/WEB-INF/views/notice/noticePagingList.jsp"/>
 	</definition>
 	
-	<!-- noticePagingList -->
+	<!-- noticeDetail -->
 	<definition name="tiles.noticeDetail" extends="layout">
 		<put-attribute name="body" value="/WEB-INF/views/notice/noticeDetail.jsp"/>
 	</definition>
 	
-	<!-- noticePagingList -->
+	<!-- noticeForm -->
 	<definition name="tiles.noticeForm" extends="layout">
 		<put-attribute name="body" value="/WEB-INF/views/notice/noticeForm.jsp"/>
 	</definition>
 	
-	<!-- noticePagingList -->
+	<!-- replyNotice -->
 	<definition name="tiles.replyNotice" extends="layout">
 		<put-attribute name="body" value="/WEB-INF/views/notice/replyNotice.jsp"/>
 	</definition>
 	
-	<!-- noticePagingList -->
+	<!-- updateNotice -->
 	<definition name="tiles.updateNotice" extends="layout">
 		<put-attribute name="body" value="/WEB-INF/views/notice/updateNotice.jsp"/>
+	</definition>
+	
+	<!-- noticeSearchPagingList -->
+	<definition name="tiles.noticeSearchPagingList" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/notice/noticeSearchPagingList.jsp"/>
 	</definition>
 	
 </tiles-definitions>

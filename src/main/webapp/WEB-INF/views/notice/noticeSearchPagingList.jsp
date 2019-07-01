@@ -5,22 +5,11 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href="../../favicon.ico">
 <title>${boardVo.name }</title>
 
-<!-- css, js -->
-<%@include file="/WEB-INF/views/common/basicLib.jsp"%>
 
 <style>
-	.userTr:hover{
+	.noticeTr:hover{
 		cursor: pointer;
 	}
 </style>
@@ -41,25 +30,35 @@
 				$("#frm").submit();
 			}
 		});
+		$("#select").change(function (){
+			$("#selected").val($(this).val())
+		});
+		$("#btnSearch").on("click", function (){
+			
+// 			$("#search").submit();
+		});
+		
 	});
 </script>
-</head>
-
-<body>
-	<!-- header -->
-	<%@include file="/WEB-INF/views/common/header.jsp"%>
-
-	<div class="container-fluid">
-		<div class="row">
-
-			<!-- left -->
-			<%@include file="/WEB-INF/views/common/left.jsp"%>
-
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<div class="row">
+<div class="row">
 					<div class="col-sm-8 blog-main">
-						<h2 class="sub-header">${boardVo.name }</h2>
-						
+					<form id="search" action="${pageContext.request.contextPath}/notice/search">
+						<select id="select">
+							<option value="content">게시글</option>
+							<option value="title">제목</option>
+						</select>
+						<div class="col-lg-6">
+						    <div class="input-group">
+						      <input type="text" class="form-control" name="search" placeholder="Search for...">
+						      <input type="hidden" id="selected" name="selected"/>
+						      <input type="hidden" name="boardId" value="${boardVo.id}">
+						      <span class="input-group-btn">
+						        <button class="btn btn-default" type="button" id="btnSearch">Search!</button>
+						      </span>
+						    </div><!-- /input-group -->
+						  </div><!-- /.col-lg-6 -->
+					  </form>
+						<h2 class="sub-header">검색 내용 : ${searchMap.search}</h2>
 						<!-- 사용자 상세 조회 : userId가 필요 -->
 						<form id="frm" action="${pageContext.request.contextPath}/notice/noticeDetail" method="get">
 							<input type="hidden" id="notiId" name="notiId">
@@ -76,11 +75,11 @@
 								</tr>
 								<c:forEach items="${noticeList}" var="notice" >
 									<tr class="noticeTr">
-									<form>
+									
+										<td class="notiId"><form>
 										<input type="hidden" class="idHidden" value="${notice.notiId}">
 										<input type="hidden" class="del_ynHidden" value="${notice.del_yn}">
-									</form>
-										<td class="notiId">${notice.rn}</td>
+									</form>${notice.rn}</td>
 										<td>
 										 	<c:choose>
 										 		<c:when test="${notice.lv > 1 }">
@@ -102,50 +101,47 @@
 							</table>
 						</div>
 
-					<a class="btn btn-default pull-right" href="${pageContext.request.contextPath }/notice/noticeForm?id=${pageMap.id}">게시글 작성</a>
+	
+					<a class="btn btn-default pull-right" href="${pageContext.request.contextPath }/notice/noticeForm?id=${searchMap.id}">게시글 작성</a>
 						<div class="text-center">
 								<!--  내가 현재 몇번째 페이지에 있는가? -->
 							 <ul class="pager">
 								<c:choose> 
-									<c:when test="${pageMap.page  == 1}">
+									<c:when test="${searchMap.page  == 1}">
 										<li class="disabled"><span>«</span></li>
 										<li class="disabled"><span>Previous</span></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="${pageContext.request.contextPath}/notice/noticeController?page=${1}&pageSize=${pageMap.pageSize}&id=${pageMap.id}">«</a></li>
-										<li><a href="${pageContext.request.contextPath}/notice/noticeController?page=${pageMap.page - 1 }&pageSize=${pageMap.pageSize}&id=${pageMap.id}">Previous</a></li>
+										<li><a href="${pageContext.request.contextPath}/notice/search?page=${1}&pageSize=${searchMap.pageSize}&id=${searchMap.id}">«</a></li>
+										<li><a href="${pageContext.request.contextPath}/notice/search?page=${searchMap.page - 1 }&pageSize=${searchMap.pageSize}&id=${searchMap.id}">Previous</a></li>
 									</c:otherwise>
 								</c:choose>
 									
 								<c:forEach var="i" begin="1" end="${paginationSize}">
 									<li> 
 									<c:choose>    
-										<c:when test="${pageMap.page == i}">
+										<c:when test="${searchMap.page == i}">
 											<li class="active" ><span>${i }</span> </li>
 										</c:when>
-										<c:when test="${pageMap.page != i}">
-											<a href="${pageContext.request.contextPath}/notice/noticeController?page=${i}&pageSize=${pageMap.pageSize}&id=${pageMap.id}">${i}</a>
+										<c:when test="${searchMap.page != i}">
+											<a href="${pageContext.request.contextPath}/notice/search?page=${i}&pageSize=${searchMap.pageSize}&id=${searchMap.id}">${i}</a>
 										</c:when>
 									</c:choose>
 									</li>
 								</c:forEach>
 								
 								<c:choose> 
-									<c:when test="${pageMap.page  == paginationSize}">
+									<c:when test="${searchMap.page  == paginationSize}">
 										<li class="disabled"><span>next</span></li>
 										<li class="disabled"><span>»</span></li>
 									</c:when>
 									<c:otherwise>
-										<li class="page-item" ><a href="${pageContext.request.contextPath}/notice/noticeController?page=${pageMap.page + 1 }&pageSize=${pageMap.pageSize}&id=${pageMap.id}">next</a></li>
-										<li class="page-item" ><a href="${pageContext.request.contextPath}/notice/noticeController?page=${paginationSize}&pageSize=${pageMap.pageSize}&id=${pageMap.id}">»</a></li>
+										<li class="page-item" ><a href="${pageContext.request.contextPath}/notice/search?page=${searchMap.page + 1 }&pageSize=${searchMap.pageSize}&id=${searchMap.id}">next</a></li>
+										<li class="page-item" ><a href="${pageContext.request.contextPath}/notice/search?page=${paginationSize}&pageSize=${searchMap.pageSize}&id=${searchMap.id}">»</a></li>
 									</c:otherwise>
 								</c:choose>
 							</ul>
+						
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-</body>
-</html>

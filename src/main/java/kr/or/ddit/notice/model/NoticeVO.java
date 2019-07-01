@@ -20,9 +20,26 @@ public class NoticeVO {
 	private int groupId; // 최상위 부모 컬럼 번호
 	private int lv; 
 	
-	
-	
-	
+//	private String selected;
+//	private String search;
+//	
+//	
+//	public String getSelected() {
+//		return selected;
+//	}
+//
+//	public void setSelected(String selected) {
+//		this.selected = selected;
+//	}
+//
+//	public String getSearch() {
+//		return search;
+//	}
+//
+//	public void setSearch(String search) {
+//		this.search = search;
+//	}
+
 	public int getLv() {
 		return lv;
 	}

@@ -15,15 +15,15 @@ public interface INoticeDao {
 	*/
 	List<NoticeVO> noticePagingList(Map<String, Object>pageMap);
 	
-	/**
-	* Method : noticeCnt
-	* 작성자 : PC25
-	* 변경이력 :
-	* @param id
-	* @return
-	* Method 설명 : 해당 게시판의 게시글 수
-	*/
-	int noticeCnt(int id);
+//	/**
+//	* Method : noticeCnt
+//	* 작성자 : PC25
+//	* 변경이력 :
+//	* @param id
+//	* @return
+//	* Method 설명 : 해당 게시판의 게시글 수
+//	*/
+//	int noticeCnt(int id);
 	
 	/**
 	* Method : insertNotice
@@ -59,7 +59,7 @@ public interface INoticeDao {
 	* 작성자 : PC25
 	* 변경이력 :
 	* @return
-	* Method 설명 : 게시글의 가장 마지막 번호
+	* Method 설명 : 게시글의 가장 마지막 번호  +1
 	*/
 	int noticeMaxId();
 
@@ -92,4 +92,24 @@ public interface INoticeDao {
 	* Method 설명 : 답글
 	*/
 	int replyNotice(NoticeVO createNoticeVo);
+
+	/**
+	* Method : noticeSearchPagingList
+	* 작성자 : PC25
+	* 변경이력 :
+	* @param searchMap
+	* @return
+	* Method 설명 : 게시글 검색 페이징 처리
+	*/
+	List<NoticeVO> noticeSearchPagingList(Map<String, Object> searchMap);
+
+	/**
+	* Method : noticeSearchCnt
+	* 작성자 : PC25
+	* 변경이력 :
+	* @param searchMap
+	* @return
+	* Method 설명 : 검색한  결과에 해당하는 게시글 의 수
+	*/
+	int noticeSearchCnt(Map<String, Object> searchMap);
 }

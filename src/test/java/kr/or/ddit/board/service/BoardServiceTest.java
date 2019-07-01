@@ -22,15 +22,15 @@ public class BoardServiceTest extends LogicTestEnv{
 	* 작성자 : PC25
 	* 변경이력 :
 	* @return
-	* Method 설명 : 게시판 전체 수 조회
+	* Method 설명 : 게시판 전체 수 +1
 	*/
 	@Test
-	public void boardsCntTest() {
+	public void boardCntTest() {
 		/***Given***/
 		/***When***/
-		int boardsCnt = boardService.boardsCnt();
+		int boardCnt = boardService.boardCnt();
 		/***Then***/
-		assertEquals(3, boardsCnt);
+		assertEquals(4, boardCnt);
 	}
 	/**
 	* Method : insertBoard

@@ -11,7 +11,6 @@
 <style>
 	.noticeTr:hover{
 		cursor: pointer;
-	}
 </style>
 
 <script>
@@ -30,12 +29,24 @@
 				$("#frm").submit();
 			}
 		});
+		$("#selected").val("${pageMap.selected}")
+		$("#select").val("${pageMap.selected}")
+		$("#select").change(function (){
+			$("#selected").val($(this).val())
+		});
+		$("#btnSearch").on("click", function (){
+			
+			$("#search").submit();
+		});
+		
 	});
 </script>
 <div class="row">
 					<div class="col-sm-8 blog-main">
-						<h2 class="sub-header">${boardVo.name }</h2>
+					
+						<h2 class="sub-header">${boardVo.name }
 						
+						</h2>
 						<!-- 사용자 상세 조회 : userId가 필요 -->
 						<form id="frm" action="${pageContext.request.contextPath}/notice/noticeDetail" method="get">
 							<input type="hidden" id="notiId" name="notiId">
@@ -78,6 +89,7 @@
 							</table>
 						</div>
 
+	
 					<a class="btn btn-default pull-right" href="${pageContext.request.contextPath }/notice/noticeForm?id=${pageMap.id}">게시글 작성</a>
 						<div class="text-center">
 								<!--  내가 현재 몇번째 페이지에 있는가? -->
@@ -117,6 +129,24 @@
 									</c:otherwise>
 								</c:choose>
 							</ul>
+							<form id="search" action="${pageContext.request.contextPath}/notice/noticeController">
+								<div id="searchdiv" class="col-lg-8">
+									<div id="selectDiv" class="input-group">
+										<select id="select">
+											<option value="content">게시글</option>
+											<option value="title">제목</option>
+										</select>
+									</div>
+								    <div class="input-group">
+								      <input type="text" class="form-control" name="search" placeholder="Search for...">
+								      <input type="hidden" id="selected" name="selected"/>
+								      <input type="hidden" name="id" value="${boardVo.id}">
+								      <span class="input-group-btn">
+								        <button class="btn btn-default" type="button" id="btnSearch">Search!</button>
+								      </span>
+								    </div><!-- /input-group -->
+							  </div>
+						  </form>
 						</div>
 					</div>
 				</div>

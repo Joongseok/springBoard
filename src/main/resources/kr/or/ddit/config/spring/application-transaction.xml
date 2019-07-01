@@ -7,17 +7,21 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
+
+	<!-- spring이 트랜잭션을 관리 해주는데 트랜잭션을 관리할 datasource가 스프링 빈에 등록이 되어있어야 한다.-->
 	<bean id="transactionManager"  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="datasource"></property>
 	</bean>
 
 
+	<!-- 선언적 트랜잭션 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes >
 			<tx:method name="*" propagation="REQUIRED"/>
 		</tx:attributes>
 	</tx:advice>
 	
+	<!-- service가 있는 모든 패키지에 트랜잭션을 선언한다 -->
 	<aop:config>
 		<aop:advisor advice-ref="txAdvice" pointcut="execution(* kr.or.ddit..service.*.*(..))"/>
 	</aop:config>

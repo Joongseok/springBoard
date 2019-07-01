@@ -23,6 +23,7 @@ $(document).ready(function (){
 	
 	$(".fileLabel").on("click", function(){
 		alert("fileLable");
+		$("#fileId").val($(this).next().next().val())
 		$("#frm").submit();
 	});
 	
@@ -37,10 +38,10 @@ $(document).ready(function (){
 					<div class="col-sm-8 blog-main">
 						<h2 class="sub-header">게시글 조회</h2>
 							
-						<form id="frm" class="form-horizontal" action="${pageContext.request.contextPath}/fileDownload" 
+						<form id="frm" class="form-horizontal" action="${pageContext.request.contextPath}/notice/fileDownload" 
 						method="post" role="form"
-						enctype="multipart/form-data"
 						>
+							<input type="hidden" class="hiddenFile" name="fileId" id="fileId" >
 
 							<div class="form-group">
 								<label for="userId" class="col-sm-2 control-label">제목</label>
@@ -59,8 +60,8 @@ $(document).ready(function (){
 							<label for="userId" class="col-sm-2 control-label">첨부파일</label>		
 								<div class="col-sm-8">
 								<c:forEach items="${notiDeatilMap.uploadFileList}" var="file">
-										<input type="hidden" class="hiddenFile" name="fileId" value="${file.fileId}">
 									<label class="fileLabel">${file.fileName }</label><br>
+									<input type="hidden" class="hiddenFile" name="files" value="${file.fileId}">
 								</c:forEach>
 								</div>
 							</div>

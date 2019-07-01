@@ -13,9 +13,8 @@ public class BoardVO {
 	@DateTimeFormat(pattern =  "yyyy-MM-dd")
 	private Date reg_dt;	//생성일시
 	
-	public BoardVO() {
-		// TODO Auto-generated constructor stub
-	}
+	// 기본 생성자
+	public BoardVO() {}
 	
 	// 생성용
 	public BoardVO(int id, String userId, String name, String use_yn) {
@@ -62,6 +61,4 @@ public class BoardVO {
 		return "BoardVO [id=" + id + ", userId=" + userId + ", name=" + name
 				+ ", use_yn=" + use_yn + ", reg_dt=" + reg_dt + "]";
 	}
-	
-	
 }

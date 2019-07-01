@@ -9,25 +9,27 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.view.AbstractView;
 
 import kr.or.ddit.uploadFile.model.UploadFileVO;
 import kr.or.ddit.uploadFile.service.IUploadFileService;
 
-@RequestMapping("/fileDownload")
-@Controller
+
 public class FileDownload extends AbstractView {
    
 	@Resource(name = "uploadFileService")
 	private IUploadFileService fileService;
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(FileDownload.class);
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
+		
 			String fileId = (String) model.get("fileId");
+			logger.debug("fileDown ~~~ : {}", fileId);
 			// 아이디에 맞는 정보를 담은 첨부파일 객체
 			UploadFileVO fileVo = fileService.getFileVo(fileId);
 			

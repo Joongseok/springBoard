@@ -39,7 +39,7 @@ public class Noti_commentControllerTest extends ControllerTestEnv{
 		String viewName = mav.getViewName();
 		String notiId = (String) mav.getModelMap().get("notiId");
 		/***Then***/
-		assertEquals("redirect:noticeDetail", viewName);
+		assertEquals("redirect:/notice/noticeDetail", viewName);
 		assertEquals("1", notiId);
 	}
 	
@@ -66,7 +66,7 @@ public class Noti_commentControllerTest extends ControllerTestEnv{
 		String viewName = mav.getViewName(); 
 		String notiId = (String) mav.getModelMap().get("notiId");
 		/***Then***/
-		assertEquals("redirect:noticeDetail", viewName);
+		assertEquals("redirect:/notice/noticeDetail", viewName);
 		assertEquals("1", notiId);
 	}
 

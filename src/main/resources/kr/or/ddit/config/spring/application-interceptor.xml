@@ -5,8 +5,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<!-- exclued-mapping path에 설정한 경로를 제외한 모든 경로에
+		bean에서 설정한 클래스를 거치게 한다. -->
 	<mvc:interceptors>
-		
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 			<mvc:exclude-mapping path="/login"/>

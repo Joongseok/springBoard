@@ -6,8 +6,10 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 
+	<!-- 외부 설정 프로퍼티를 스프링에서 사용하기 위해 사용할 프로퍼티 경로를 설정 -->
 	<context:property-placeholder location="classpath:kr/or/ddit/config/mybatis/db.properties"/>
 	
+	<!-- DB계정 정보 -->
 	<bean id="datasource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="${jdbc.driver}"/>
 		<property name="url" value="${jdbc.url}"/>
@@ -15,10 +17,13 @@
 		<property name="password" value="${jdbc.password}"/>
 	</bean>
 	
+	<!-- mybatis-config설정 -->
 	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:kr/or/ddit/config/mybatis/mybatis-config.xml"/>
 		<property name="dataSource" ref="datasource"/>
 	</bean>
+	
+	<!-- Dao에서 사용할 bean -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactoryBean"/>
 	</bean>

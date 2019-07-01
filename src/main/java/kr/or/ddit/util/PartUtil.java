@@ -10,15 +10,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.http.Part;
-
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.or.ddit.board.model.BoardVO;
 import kr.or.ddit.uploadFile.model.UploadFileVO;
 
 public class PartUtil {
-	private static final String UPLOAD_PATH = "d:"+ File.separator +"upload"+ File.separator;
+	private static final String UPLOAD_PATH = "d:"+ File.separator +"springupload"+ File.separator;
 	
 	/**
 	* Method : getExtTest

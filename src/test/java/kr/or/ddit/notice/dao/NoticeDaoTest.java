@@ -19,10 +19,9 @@ public class NoticeDaoTest extends LogicTestEnv{
 	private INoticeDao noticeDao;
 	
 	/**
-	* Method : noticeList
+	* Method : noticePagingListTest
 	* 작성자 : PC25
 	* 변경이력 :
-	* @return
 	* Method 설명 : 게시판에 해당하는 게시글만 조회 테스트
 	*/
 	@Test
@@ -33,34 +32,54 @@ public class NoticeDaoTest extends LogicTestEnv{
 		pageMap.put("id", 1);
 		pageMap.put("page", 1);
 		pageMap.put("pageSize", 10);
+		pageMap.put("selected", "title");
+		pageMap.put("search", "");
 		List<NoticeVO> noticeList =  noticeDao.noticePagingList(pageMap);
 		/***Then***/
 		assertEquals(10, noticeList.size());
 	}
 	
-	/**
-	* Method : noticeCnt
-	* 작성자 : PC25
-	* 변경이력 :
-	* @param boardVo
-	* @return
-	* Method 설명 : 게시판의 번호에 해당하는 게시글을 출력하는 메서드 테스트
-	*/
-	@Test
-	public void noticeCntTest() {
-		/***Given***/
-		/***When***/
-		int noticeCnt = noticeDao.noticeCnt(1);
-		/***Then***/
-		assertEquals(13, noticeCnt);
-	}
+//	/**
+//	 * Method : noticeSearchPagingListTest
+//	 * 작성자 : PC25
+//	 * 변경이력 :
+//	 * @return
+//	 * Method 설명 : 게시글 검색 페이징 처리 테스트
+//	 */
+//	@Test
+//	public void noticeSearchPagingListTest() {
+//		/***Given***/
+//		Map<String, Object> searchMap = new HashMap<String, Object>();
+//		/***When***/
+//		searchMap.put("id", 1);
+//		searchMap.put("page", 1);
+//		searchMap.put("pageSize", 10);
+//		searchMap.put("selected", "title");
+//		searchMap.put("search", 1);
+//		List<NoticeVO> noticeList =  noticeDao.noticeSearchPagingList(searchMap);
+//		/***Then***/
+//		assertEquals(5, noticeList.size());
+//	}
+	
+//	/**
+//	* Method : noticeCntTest
+//	* 작성자 : PC25
+//	* 변경이력 :
+//	* Method 설명 : 게시판의 번호에 해당하는 게시글을 출력하는 메서드 테스트
+//	*/
+//	@Test
+//	public void noticeCntTest() {
+//		/***Given***/
+//		/***When***/
+//		int noticeCnt = noticeDao.noticeCnt(1);
+//		/***Then***/
+//		assertEquals(13, noticeCnt);
+//	}
 	
 	/**
-	* Method : insertNotice
+	* Method : insertNoticeTest
 	* 작성자 : PC25
 	* 변경이력 :
-	* @param noticeVo
-	* @return
 	* Method 설명 : 게시글 작성 테스트
 	*/
 	@Test
@@ -74,10 +93,9 @@ public class NoticeDaoTest extends LogicTestEnv{
 	}
 	
 	/**
-	* Method : noticeAllCnt
+	* Method : noticeAllCntTest
 	* 작성자 : PC25
 	* 변경이력 :
-	* @return
 	* Method 설명 : 모든 게시판의 게시글을 합친수 테스트
 	*/
 	@Test
@@ -90,11 +108,9 @@ public class NoticeDaoTest extends LogicTestEnv{
 	}
 	
 	/**
-	* Method : getNotice
+	* Method : getNoticeTest
 	* 작성자 : PC25
 	* 변경이력 :
-	* @param notiId
-	* @return
 	* Method 설명 : 게시글 선택조회
 	*/
 	@Test
@@ -108,10 +124,9 @@ public class NoticeDaoTest extends LogicTestEnv{
 	}
 	
 	/**
-	* Method : noticeMaxId
+	* Method : noticeMaxIdTest
 	* 작성자 : PC25
 	* 변경이력 :
-	* @return
 	* Method 설명 : 게시글의 마지막 번호
 	*/
 	@Test
@@ -124,11 +139,9 @@ public class NoticeDaoTest extends LogicTestEnv{
 	}
 	
 	/**
-	* Method : updateNotice
+	* Method : updateNoticeTest
 	* 작성자 : PC25
 	* 변경이력 :
-	* @param noticeVo
-	* @return
 	* Method 설명 : 게시글 수정
 	*/
 	@Test
@@ -142,11 +155,9 @@ public class NoticeDaoTest extends LogicTestEnv{
 	}
 	
 	/**
-	* Method : deleteNotice
+	* Method : deleteNoticeTest
 	* 작성자 : PC25
 	* 변경이력 :
-	* @param noticeVo
-	* @return
 	* Method 설명 : 게시글 삭제
 	*/
 	@Test
@@ -159,11 +170,9 @@ public class NoticeDaoTest extends LogicTestEnv{
 	}
 	
 	/**
-	* Method : replyNotice
+	* Method : replyNoticeTest
 	* 작성자 : PC25
 	* 변경이력 :
-	* @param createNoticeVo
-	* @return
 	* Method 설명 : 답글
 	*/
 	@Test

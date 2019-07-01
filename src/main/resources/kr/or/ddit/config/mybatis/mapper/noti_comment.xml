@@ -6,7 +6,7 @@
 
 <!-- 전체 댓글 수 -->	                    			
 <select id="commentAllCnt" resultType="int">
-	SELECT /*+ INDEX_FSS(NOTI_COMMENT PK_NOTI_COMMENT) */COUNT(*)
+	SELECT COUNT(*)
 	FROM NOTI_COMMENT
 </select>
 

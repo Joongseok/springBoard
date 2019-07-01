@@ -32,7 +32,9 @@ public class BoardController {
 	@RequestMapping(path = "/boardManager", method = RequestMethod.GET)
 	public String boardManager(HttpServletRequest request) {
 		
+		// 사용중인 게시판 리스트
 		List<BoardVO> boardList = boardService.boardList();
+		
 		if(boardList != null) {
 			request.getSession().setAttribute("boardList", boardList);
 			request.getSession().setAttribute("boardAllList", boardService.boardAllList());
@@ -55,7 +57,7 @@ public class BoardController {
 	@RequestMapping(path = "/createBoard", method = RequestMethod.POST)
 	public String createBoard(String createBoardName, String use_yn, HttpServletRequest request) {
 		
-		int id = boardService.boardsCnt() == 0 ? 1 : boardService.boardsCnt() + 1;
+		int id = boardService.boardCnt();
 		String userId = ((UserVO)request.getSession().getAttribute("USER_INFO")).getUserId();
 		BoardVO boardVo = new BoardVO(id, userId, createBoardName, use_yn);
 		

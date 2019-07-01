@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.noti_comment.dao.INoti_CommentDao;
@@ -26,7 +28,7 @@ public class NoticeService implements INoticeService {
 	@Resource(name = "uploadFileDao")
 	private IUploadFileDao uploadFileDao;
 	
-	
+	private static final Logger logger = LoggerFactory.getLogger(NoticeService.class);
 	/**
 	* Method : noticeList
 	* 작성자 : PC25
@@ -36,36 +38,41 @@ public class NoticeService implements INoticeService {
 	*/
 	@Override
 	public Map<String, Object> noticePagingList(Map<String, Object> pageMap) {
-		int id = (int)pageMap.get("id");
-		
+		logger.debug("========================================Service Start=============================================");
+		logger.debug("Service selected["+pageMap.get("selected")+"]");
+		logger.debug("Service search["+pageMap.get("search")+"]");
 		List<NoticeVO> noticeList = noticeDao.noticePagingList(pageMap);
-		int noticeCnt = noticeDao.noticeCnt(id);
-		
+		logger.debug("Service noticeList["+noticeList+"]");
+		int noticeCnt = noticeDao.noticeSearchCnt(pageMap);
 		int pageSize = (int) pageMap.get("pageSize");
 		int paginationSize = (int) Math.ceil((double)noticeCnt/pageSize);
 		if (paginationSize == 0) {
 			paginationSize = 1;
 		}
+		logger.debug("Service pageSize["+pageSize+"]");
+		logger.debug("Service noticeCnt["+noticeCnt+"]");
+		logger.debug("Service paginationSize["+paginationSize+"]");
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("noticeList", noticeList);
 		resultMap.put("paginationSize", paginationSize);
 		
+		logger.debug("========================================Service End=============================================");
 		return resultMap;
 	}
 	
-	/**
-	* Method : noticeCnt
-	* 작성자 : PC25
-	* 변경이력 :
-	* @param boardVo
-	* @return
-	* Method 설명 : 해당 게시판의 게시글 수
-	*/
-	@Override
-	public int noticeCnt(int id) {
-		return noticeDao.noticeCnt(id);
-	}
+//	/**
+//	* Method : noticeCnt
+//	* 작성자 : PC25
+//	* 변경이력 :
+//	* @param boardVo
+//	* @return
+//	* Method 설명 : 해당 게시판의 게시글 수
+//	*/
+//	@Override
+//	public int noticeCnt(int id) {
+//		return noticeDao.noticeCnt(id);
+//	}
 	
 	/**
 	* Method : insertNotice
@@ -117,7 +124,7 @@ public class NoticeService implements INoticeService {
 	* 작성자 : PC25
 	* 변경이력 :
 	* @return
-	* Method 설명 : 게시글의 가장 마지막 번호
+	* Method 설명 : 게시글의 가장 마지막 번호 +1
 	*/
 	@Override
 	public int noticeMaxId() {
@@ -158,6 +165,34 @@ public class NoticeService implements INoticeService {
 	@Override
 	public int replyNotice(NoticeVO createNoticeVo) {
 		return noticeDao.replyNotice(createNoticeVo);
+	}
+
+	/**
+	* Method : noticeSearchPagingList
+	* 작성자 : PC25
+	* 변경이력 :
+	* @param searchMap
+	* @return
+	* Method 설명 : 게시글 검색 페이징 처리
+	*/ 
+	@Override
+	public Map<String, Object> noticeSearchPagingList(Map<String, Object> searchMap) {
+		int id = (int)searchMap.get("id");
+		
+		List<NoticeVO> noticeSearchList = noticeDao.noticeSearchPagingList(searchMap);
+		int noticeSearchCnt = noticeDao.noticeSearchCnt(searchMap);
+		
+		int pageSize = (int) searchMap.get("pageSize");
+		int paginationSize = (int) Math.ceil((double)noticeSearchCnt/pageSize);
+		if (paginationSize == 0) {
+			paginationSize = 1;
+		}
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("noticeSearchList", noticeSearchList);
+		resultMap.put("paginationSize", paginationSize);
+		
+		return resultMap;
 	}
 
 }

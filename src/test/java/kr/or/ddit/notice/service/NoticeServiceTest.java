@@ -34,6 +34,8 @@ public class NoticeServiceTest extends LogicTestEnv{
 		pageMap.put("id", 1);
 		pageMap.put("page", 1);
 		pageMap.put("pageSize", 10);
+		pageMap.put("selected", "title");
+		pageMap.put("search", "");
 		Map<String, Object> resultMap =  noticeService.noticePagingList(pageMap);
 		
 		int paginationSize = (int) resultMap.get("paginationSize");
@@ -43,22 +45,49 @@ public class NoticeServiceTest extends LogicTestEnv{
 		assertEquals(2, paginationSize);
 	}
 	
-	/**
-	* Method : noticeCnt
-	* 작성자 : PC25
-	* 변경이력 :
-	* @param boardVo
-	* @return
-	* Method 설명 : 게시판의 번호에 해당하는 게시글을 출력하는 메서드 테스트
-	*/
-	@Test
-	public void noticeCntTest() {
-		/***Given***/
-		/***When***/
-		int noticeCnt = noticeService.noticeCnt(1);
-		/***Then***/
-		assertEquals(13, noticeCnt);
-	}
+//	/**
+//	 * Method : noticeSearchPagingListTest
+//	 * 작성자 : PC25
+//	 * 변경이력 :
+//	 * @return
+//	 * Method 설명 : 게시글 검색 페이징 처리 테스트
+//	 */
+//	@Test
+//	public void noticeSearchPagingListTest() {
+//		/***Given***/
+//		Map<String, Object> searchMap = new HashMap<String, Object>();
+//		/***When***/
+//		searchMap.put("id", 1);
+//		searchMap.put("page", 1);
+//		searchMap.put("pageSize", 10);
+//		searchMap.put("selected", "title");
+//		searchMap.put("search", 1);
+//		Map<String, Object> resultMap =  noticeService.noticeSearchPagingList(searchMap);
+//	
+//		int paginationSize = (int) resultMap.get("paginationSize");
+//		List<NoticeVO> noticeList = (List<NoticeVO>) resultMap.get("noticeList");
+//		
+//		/***Then***/
+//		assertEquals(10, noticeList.size());
+//		assertEquals(2, paginationSize);
+//	}
+	
+//	/**
+//	* Method : noticeCnt
+//	* 작성자 : PC25
+//	* 변경이력 :
+//	* @param boardVo
+//	* @return
+//	* Method 설명 : 게시판의 번호에 해당하는 게시글을 출력하는 메서드 테스트
+//	*/
+//	@Test
+//	public void noticeCntTest() {
+//		/***Given***/
+//		/***When***/
+//		int noticeCnt = noticeService.noticeCnt(1);
+//		/***Then***/
+//		assertEquals(13, noticeCnt);
+//	}
 	
 	/**
 	* Method : insertNotice
