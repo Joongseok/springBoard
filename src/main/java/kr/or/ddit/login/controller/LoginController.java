@@ -18,6 +18,7 @@ public class LoginController {
 
 	@Resource(name = "userService")
 	private IUserService userService;
+	
 	@Resource(name = "boardService")
 	private IBoardService boardService;
 	
@@ -34,8 +35,10 @@ public class LoginController {
 		UserVO userVo = userService.getUser(userId);
 		if (userVo != null && userVo.getPass().equals(encryptPass)) {
 			session.setAttribute("USER_INFO", userVo);
-			session.setAttribute("boardAllList", boardService.boardAllList());
-			session.setAttribute("boardList", boardService.boardList());
+			if(boardService.boardAllList() != null) {
+				session.setAttribute("boardAllList", boardService.boardAllList());
+				session.setAttribute("boardList", boardService.boardList());
+			}
 			return "tiles.main";
 		}else {
 			model.addAttribute("userId", userId);

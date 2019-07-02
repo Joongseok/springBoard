@@ -18,5 +18,13 @@
 			<mvc:exclude-mapping path="/error/**"/>
 			<bean class="kr.or.ddit.interceptor.SessionCheckInterceptor"/>
 		</mvc:interceptor>
+		
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/board/createBoard"/>
+			<mvc:mapping path="/board/updateBoard"/>
+			<bean class="kr.or.ddit.interceptor.CreateUpdateBoardInterceptor"/>
+		</mvc:interceptor>
+		
 	</mvc:interceptors>
 </beans>

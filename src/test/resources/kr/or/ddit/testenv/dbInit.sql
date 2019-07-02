@@ -1,6 +1,7 @@
 select * from not_exists_in_prd_db;
 
 --users 테이블 초기화
+delete uploadFile;
 delete noti_comment;
 delete notice;
 delete board;

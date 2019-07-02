@@ -31,24 +31,11 @@ public class Noti_CommentDao implements INoti_CommentDao {
 	* 작성자 : PC25
 	* 변경이력 :
 	* @return
-	* Method 설명 : 댓글의 마지막 번호
+	* Method 설명 : 댓글의 마지막 번호 + 1
 	*/
 	@Override
 	public int commentMaxId() {
 		return sqlSession.selectOne("noti_comment.commentMaxId");
-	}
-
-	/**
-	* Method : insertComment
-	* 작성자 : PC25
-	* 변경이력 :
-	* @param ntcVo
-	* @return
-	* Method 설명 : 댓글 생성
-	*/
-	@Override
-	public int insertComment(Noti_commentVO ntcVo) {
-		return sqlSession.insert("noti_comment.insertComment", ntcVo);
 	}
 
 	/**
@@ -57,11 +44,24 @@ public class Noti_CommentDao implements INoti_CommentDao {
 	* 변경이력 :
 	* @param notiId
 	* @return
-	* Method 설명 : 댓글 리스트
+	* Method 설명 : 해당 게시글의 댓글 리스트
 	*/
 	@Override
 	public List<Noti_commentVO> commentList(int notiId) {
 		return sqlSession.selectList("noti_comment.commentList", notiId);
+	}
+	
+	/**
+	 * Method : insertComment
+	 * 작성자 : PC25
+	 * 변경이력 :
+	 * @param ntcVo
+	 * @return
+	 * Method 설명 : 댓글 작성
+	 */
+	@Override
+	public int insertComment(Noti_commentVO ntcVo) {
+		return sqlSession.insert("noti_comment.insertComment", ntcVo);
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class Noti_CommentDao implements INoti_CommentDao {
 	* 변경이력 :
 	* @param ntcId
 	* @return
-	* Method 설명 : ID에 해당하는 댓글 삭제
+	* Method 설명 : 해당 ID의 댓글 삭제 
 	*/
 	@Override
 	public int deleteCmt(int ntcId) {

@@ -1,17 +1,11 @@
 package kr.or.ddit.board.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.junit.Test;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ddit.testenv.ControllerTestEnv;
@@ -47,7 +41,7 @@ public class BoardControllerTest extends ControllerTestEnv{
 	* @param use_yn
 	* @param request
 	* @return
-	* Method 설명 : 게시판 생성
+	* Method 설명 : 게시판 생성 테스트
 	 * @throws Exception 
 	*/
 	@Test

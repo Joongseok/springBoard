@@ -1,6 +1,6 @@
 package kr.or.ddit.noti_comment.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class Noti_CommentDaoTest extends LogicTestEnv{
 	* 작성자 : PC25
 	* 변경이력 :
 	* @return
-	* Method 설명 : 댓글 전체 수 
+	* Method 설명 : 댓글 전체 수  테스트
 	*/
 	@Test
 	public void commentAllCntTest() {
@@ -37,7 +37,7 @@ public class Noti_CommentDaoTest extends LogicTestEnv{
 	* 작성자 : PC25
 	* 변경이력 :
 	* @return
-	* Method 설명 : 댓글의 마지막 번호 + 1
+	* Method 설명 : 댓글의 마지막 번호 + 1 테스트
 	*/
 	@Test
 	public void commentMaxIdTest() {
@@ -54,7 +54,7 @@ public class Noti_CommentDaoTest extends LogicTestEnv{
 	* 변경이력 :
 	* @param ntcVo
 	* @return
-	* Method 설명 : 댓글 작성
+	* Method 설명 : 댓글 작성 테스트
 	*/
 	@Test
 	public void insertCommentTest() {
@@ -72,7 +72,7 @@ public class Noti_CommentDaoTest extends LogicTestEnv{
 	* 변경이력 :
 	* @param notiId
 	* @return
-	* Method 설명 : 해당게시글의 댓글 리스트
+	* Method 설명 : 해당게시글의 댓글 리스트 테스트
 	*/
 	@Test
 	public void commentListTest() {
@@ -89,7 +89,7 @@ public class Noti_CommentDaoTest extends LogicTestEnv{
 	* 변경이력 :
 	* @param id
 	* @return
-	* Method 설명 : 해당 게시글 이 삭제되면 댓글도 전부 cascade
+	* Method 설명 : 해당 게시글 이 삭제되면 댓글도 전부 cascade 테스트
 	*/
 	@Test
 	public void deleteCommentTest() {
@@ -106,7 +106,7 @@ public class Noti_CommentDaoTest extends LogicTestEnv{
 	* 변경이력 :
 	* @param id
 	* @return
-	* Method 설명 : 해당 ID의 댓글 삭제
+	* Method 설명 : 해당 ID의 댓글 삭제 테스트
 	*/
 	@Test
 	public void deleteCmtTest() {

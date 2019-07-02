@@ -2,8 +2,6 @@ package kr.or.ddit.uploadFile.service;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-
 import kr.or.ddit.uploadFile.model.UploadFileVO;
 
 public interface IUploadFileService {

@@ -2,13 +2,10 @@ package kr.or.ddit.paging.model;
 
 public class PageVO {
 
-	
 	private int page;
 	private int pageSize;
 	
-	public PageVO() {
-		// TODO Auto-generated constructor stub
-	}
+	public PageVO() {}
 
 	public PageVO(int page, int pageSize) {
 		super();
@@ -36,6 +33,5 @@ public class PageVO {
 	public String toString() {
 		return "PageVO [page=" + page + ", pageSize=" + pageSize + "]";
 	}
-	
 	
 }

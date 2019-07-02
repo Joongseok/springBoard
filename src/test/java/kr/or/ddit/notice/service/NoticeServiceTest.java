@@ -1,7 +1,12 @@
 package kr.or.ddit.notice.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +14,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.junit.Test;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.ddit.noti_comment.model.Noti_commentVO;
 import kr.or.ddit.notice.model.NoticeVO;
@@ -45,50 +52,6 @@ public class NoticeServiceTest extends LogicTestEnv{
 		assertEquals(2, paginationSize);
 	}
 	
-//	/**
-//	 * Method : noticeSearchPagingListTest
-//	 * 작성자 : PC25
-//	 * 변경이력 :
-//	 * @return
-//	 * Method 설명 : 게시글 검색 페이징 처리 테스트
-//	 */
-//	@Test
-//	public void noticeSearchPagingListTest() {
-//		/***Given***/
-//		Map<String, Object> searchMap = new HashMap<String, Object>();
-//		/***When***/
-//		searchMap.put("id", 1);
-//		searchMap.put("page", 1);
-//		searchMap.put("pageSize", 10);
-//		searchMap.put("selected", "title");
-//		searchMap.put("search", 1);
-//		Map<String, Object> resultMap =  noticeService.noticeSearchPagingList(searchMap);
-//	
-//		int paginationSize = (int) resultMap.get("paginationSize");
-//		List<NoticeVO> noticeList = (List<NoticeVO>) resultMap.get("noticeList");
-//		
-//		/***Then***/
-//		assertEquals(10, noticeList.size());
-//		assertEquals(2, paginationSize);
-//	}
-	
-//	/**
-//	* Method : noticeCnt
-//	* 작성자 : PC25
-//	* 변경이력 :
-//	* @param boardVo
-//	* @return
-//	* Method 설명 : 게시판의 번호에 해당하는 게시글을 출력하는 메서드 테스트
-//	*/
-//	@Test
-//	public void noticeCntTest() {
-//		/***Given***/
-//		/***When***/
-//		int noticeCnt = noticeService.noticeCnt(1);
-//		/***Then***/
-//		assertEquals(13, noticeCnt);
-//	}
-	
 	/**
 	* Method : insertNotice
 	* 작성자 : PC25
@@ -96,13 +59,17 @@ public class NoticeServiceTest extends LogicTestEnv{
 	* @param noticeVo
 	* @return
 	* Method 설명 : 게시글 작성 테스트
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	*/
 	@Test
-	public void insertNoticeTest() {
+	public void insertNoticeTest() throws FileNotFoundException, IOException {
 		/***Given***/
-		/***When***/
+		File f = new File("src/test/resources/kr/or/ddit/testenv/sally.png");
+		MultipartFile[] files = {new MockMultipartFile("profile", f.getName(), "", new FileInputStream(f))};
 		NoticeVO noticeVo = new NoticeVO(14, "brown", "테스트 제목 14", "테스트 내용 14", 1, 14);
-		int result = noticeService.insertNotice(noticeVo);
+		/***When***/
+		int result = noticeService.insertNotice(noticeVo, files);
 		/***Then***/
 		assertEquals(1, result);
 	}
@@ -129,7 +96,7 @@ public class NoticeServiceTest extends LogicTestEnv{
 	* 변경이력 :
 	* @param notiId
 	* @return
-	* Method 설명 : 게시글 선택조회
+	* Method 설명 : 게시글 선택조회 테스트
 	*/
 	@Test
 	public void getNoticeTest() {
@@ -149,7 +116,7 @@ public class NoticeServiceTest extends LogicTestEnv{
 	* 작성자 : PC25
 	* 변경이력 :
 	* @return
-	* Method 설명 : 게시글의 마지막 번호
+	* Method 설명 : 게시글의 마지막 번호 테스트
 	*/
 	@Test
 	public void noticeMaxIdTest() {
@@ -166,14 +133,19 @@ public class NoticeServiceTest extends LogicTestEnv{
 	* 변경이력 :
 	* @param noticeVo
 	* @return
-	* Method 설명 : 게시글 수정
+	* Method 설명 : 게시글 수정 테스트
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	*/
 	@Test
-	public void updateNoticeTest() {
+	public void updateNoticeTest() throws FileNotFoundException, IOException {
 		/***Given***/
 		/***When***/
+		File f = new File("src/test/resources/kr/or/ddit/testenv/sally.png");
+		MultipartFile[] files = {new MockMultipartFile("profile", f.getName(), "", new FileInputStream(f))};
+		String[] deleteId = new String[] {};
 		NoticeVO noticeVo = new NoticeVO(1, "테스트 제목 수정", "테스트 내용 수정");
-		int result = noticeService.updateNotice(noticeVo);
+		int result = noticeService.updateNotice(noticeVo,deleteId, files);
 		/***Then***/
 		assertEquals(1, result);
 	}
@@ -184,7 +156,7 @@ public class NoticeServiceTest extends LogicTestEnv{
 	* 변경이력 :
 	* @param noticeVo
 	* @return
-	* Method 설명 : 게시글 삭제
+	* Method 설명 : 게시글 삭제 테스트
 	*/
 	@Test
 	public void deleteNoticeTest() {
@@ -201,14 +173,18 @@ public class NoticeServiceTest extends LogicTestEnv{
 	* 변경이력 :
 	* @param createNoticeVo
 	* @return
-	* Method 설명 : 답글
+	* Method 설명 : 답글 테스트
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	*/
 	@Test
-	public void replyNoticeTest() {
+	public void replyNoticeTest() throws FileNotFoundException, IOException {
 		/***Given***/
 		/***When***/
+		File f = new File("src/test/resources/kr/or/ddit/testenv/sally.png");
+		MultipartFile[] files = {new MockMultipartFile("profile", f.getName(), "", new FileInputStream(f))};
 		NoticeVO reply = new NoticeVO(14, "sally", "테스트 답글", "테스트 답글내용", 1, 1, 1);
-		int result = noticeService.replyNotice(reply);
+		int result = noticeService.replyNotice(reply, files);
 		/***Then***/
 		assertEquals(1, result);
 	}

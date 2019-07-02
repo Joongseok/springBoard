@@ -2,37 +2,30 @@ package kr.or.ddit.notice.service;
 
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import kr.or.ddit.notice.model.NoticeVO;
 
 public interface INoticeService {
+	
 	/**
 	* Method : noticeList
 	* 작성자 : PC25
 	* 변경이력 :
+	* @param pageMap
 	* @return
-	* Method 설명 : 게시글 페이징 조회
+	* Method 설명 : 검색 기능을 포함한 계층형 게시글 페이징 리스트
 	*/
 	Map<String, Object> noticePagingList(Map<String, Object> pageMap);
 	
-//	/**
-//	* Method : noticeCnt
-//	* 작성자 : PC25
-//	* 변경이력 :
-//	* @param boardVo
-//	* @return
-//	* Method 설명 : 해당 게시판의 게시글 수
-//	*/
-//	int noticeCnt(int id);
-	
 	/**
-	* Method : insertNotice
+	* Method : noticeMaxId
 	* 작성자 : PC25
 	* 변경이력 :
-	* @param noticeVo
 	* @return
-	* Method 설명 : 게시글 작성
+	* Method 설명 : 게시글의 가장 마지막 번호 +1
 	*/
-	int insertNotice(NoticeVO noticeVo);
+	int noticeMaxId();
 	
 	/**
 	* Method : noticeAllCnt
@@ -42,35 +35,50 @@ public interface INoticeService {
 	* Method 설명 : 모든게시판의 게시글을 합친수
 	*/
 	int noticeAllCnt();
+	
+	/**
+	* Method : insertNotice
+	* 작성자 : PC25
+	* 변경이력 :
+	* @param noticeVo
+	* @param files
+	* @return
+	* Method 설명 : 게시글 작성
+	*/
+	int insertNotice(NoticeVO noticeVo, MultipartFile[] files);
 
+	/**
+	* Method : replyNotice
+	* 작성자 : PC25
+	* 변경이력 :
+	* @param createNoticeVo
+	* @param files
+	* @return
+	* Method 설명 : 답글
+	*/
+	int replyNotice(NoticeVO createNoticeVo, MultipartFile[] files);
+	
 	/**
 	* Method : getNotice
 	* 작성자 : PC25
 	* 변경이력 :
 	* @param notiId
 	* @return
-	* Method 설명 : 게시글 선택 조회
+	* Method 설명 : 아이디에 해당하는 게시글 정보
 	*/
 	Map<String, Object> getNotice(int notiId);
-
-	/**
-	* Method : noticeMaxId
-	* 작성자 : PC25
-	* 변경이력 :
-	* @return
-	* Method 설명 : 게시글의 가장 마지막 번호 +1
-	*/
-	int noticeMaxId();
 
 	/**
 	* Method : updateNotice
 	* 작성자 : PC25
 	* 변경이력 :
 	* @param noticeVo
+	* @param deleteFileId
+	* @param files
 	* @return
 	* Method 설명 : 게시글 수정
 	*/
-	int updateNotice(NoticeVO noticeVo);
+	int updateNotice(NoticeVO noticeVo, String[] deleteFileId, MultipartFile[] files);
 
 	/**
 	* Method : deleteNotice
@@ -82,23 +90,4 @@ public interface INoticeService {
 	*/
 	int deleteNotice(int notiId);
 
-	/**
-	* Method : replyNotice
-	* 작성자 : PC25
-	* 변경이력 :
-	* @param createNoticeVo
-	* @return
-	* Method 설명 : 답글
-	*/
-	int replyNotice(NoticeVO createNoticeVo);
-
-	/**
-	* Method : noticeSearchPagingList
-	* 작성자 : PC25
-	* 변경이력 :
-	* @param searchMap
-	* @return
-	* Method 설명 : 게시글 검색 페이징 처리
-	*/
-	Map<String, Object> noticeSearchPagingList(Map<String, Object> searchMap);
 }

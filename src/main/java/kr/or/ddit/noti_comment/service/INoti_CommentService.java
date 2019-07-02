@@ -20,9 +20,19 @@ public interface INoti_CommentService {
 	* 작성자 : PC25
 	* 변경이력 :
 	* @return
-	* Method 설명 : 댓글의 마지막 번호
+	* Method 설명 : 댓글의 마지막 번호 + 1
 	*/
 	int commentMaxId();
+	
+	/**
+	 * Method : commentList
+	 * 작성자 : PC25
+	 * 변경이력 :
+	 * @param notiId 
+	 * @return
+	 * Method 설명 : 해당 게시글의 댓글 리스트
+	 */
+	List<Noti_commentVO> commentList(int notiId);
 
 	/**
 	* Method : insertComment
@@ -33,16 +43,6 @@ public interface INoti_CommentService {
 	* Method 설명 : 댓글 작성
 	*/
 	int insertComment(Noti_commentVO ntcVo);
-
-	/**
-	* Method : commentList
-	* 작성자 : PC25
-	* 변경이력 :
-	 * @param notiId 
-	* @return
-	* Method 설명 : 해당 게시글의 댓글 리스트
-	*/
-	List<Noti_commentVO> commentList(int notiId);
 
 	/**
 	* Method : deleteComment

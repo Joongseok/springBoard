@@ -1,6 +1,7 @@
 package kr.or.ddit.board.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class BoardServiceTest extends LogicTestEnv{
 	* 작성자 : PC25
 	* 변경이력 :
 	* @return
-	* Method 설명 : 게시판 전체 수 +1
+	* Method 설명 : 게시판 전체 수 +1 테스트
 	*/
 	@Test
 	public void boardCntTest() {
@@ -38,7 +39,7 @@ public class BoardServiceTest extends LogicTestEnv{
 	* 변경이력 :
 	* @param boardVo
 	* @return
-	* Method 설명 : 게시판 생성
+	* Method 설명 : 게시판 생성 테스트
 	*/
 	@Test
 	public void insertBoard() {
@@ -54,7 +55,7 @@ public class BoardServiceTest extends LogicTestEnv{
 	* 작성자 : PC25
 	* 변경이력 :
 	* @return
-	* Method 설명 : 사용여부가 true인 boardList 조회
+	* Method 설명 : 사용여부가 true인 boardList 조회 테스트
 	*/
 	@Test
 	public void boardList() {
@@ -70,7 +71,7 @@ public class BoardServiceTest extends LogicTestEnv{
 	* 변경이력 :
 	* @param id
 	* @return
-	* Method 설명 : 게시판 선택조회
+	* Method 설명 : 게시판 선택조회 테스트
 	*/
 	@Test
 	public void getBoardTest() {
@@ -87,7 +88,7 @@ public class BoardServiceTest extends LogicTestEnv{
 	* 변경이력 :
 	* @param boardVo
 	* @return
-	* Method 설명 : 게시판 사용여부 수정
+	* Method 설명 : 게시판 사용여부 수정 테스트
 	*/
 	@Test
 	public void updateBoardTest() {
@@ -105,7 +106,7 @@ public class BoardServiceTest extends LogicTestEnv{
 	* 작성자 : PC25
 	* 변경이력 :
 	* @return
-	* Method 설명 : 사용여부 상관없이 모든 boardList 조회
+	* Method 설명 : 사용여부 상관없이 모든 boardList 조회 테스트
 	*/
 	@Test
 	public void boardAllListTest() {

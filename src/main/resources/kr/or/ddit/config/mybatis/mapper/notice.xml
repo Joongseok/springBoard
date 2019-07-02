@@ -23,13 +23,13 @@
 	]]>
 </select>
 
-<!-- 게시글중 가장 높은 게시글 아이디 + 1 -->
+<!-- 게시글중 가장 높은 게시글 번호 + 1 -->
 <select id="noticeMaxId" resultType="int">
 	SELECT MAX(NOTIID) +1
 	FROM NOTICE
 </select>
 
-<!-- 검색한 내용에 해당하는 게시글 전체 개수 -->                	
+<!-- 검색한 결과에 해당하는 게시글 의 수 -->                	
 <select id="noticeSearchCnt" parameterType="map" resultType="int">
 	SELECT COUNT(*)
 	FROM NOTICE N, BOARD B

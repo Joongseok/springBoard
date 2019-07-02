@@ -1,11 +1,8 @@
 package kr.or.ddit.notice.controller;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,13 +11,11 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ddit.board.model.BoardVO;
@@ -123,7 +118,7 @@ public class NoticeControllerTest extends ControllerTestEnv{
 	* 작성자 : OWNER
 	* 변경이력 :
 	* @return
-	* Method 설명 : 게시글 등록 요청화면
+	* Method 설명 : 게시글 등록 요청화면 테스트
 	 * @throws Exception 
 	*/
 	@Test
@@ -142,7 +137,7 @@ public class NoticeControllerTest extends ControllerTestEnv{
 	 * 작성자 : OWNER
 	 * 변경이력 :
 	 * @return
-	 * Method 설명 : 게시글 등록 응답화면
+	 * Method 설명 : 게시글 등록 응답화면 테스트
 	 * @throws Exception 
 	 */
 	@Test
@@ -176,7 +171,7 @@ public class NoticeControllerTest extends ControllerTestEnv{
 	* @param notiId
 	* @param redirectAttributes
 	* @return
-	* Method 설명 : 게시글 삭제
+	* Method 설명 : 게시글 삭제 테스트
 	 * @throws Exception 
 	*/
 	@Test
@@ -198,7 +193,7 @@ public class NoticeControllerTest extends ControllerTestEnv{
 	* 작성자 : OWNER
 	* 변경이력 :
 	* @return
-	* Method 설명 : 게시글 답글 요청 화면
+	* Method 설명 : 게시글 답글 요청 화면 테스트
 	 * @throws Exception 
 	*/
 	@Test
@@ -221,7 +216,7 @@ public class NoticeControllerTest extends ControllerTestEnv{
 	 * 작성자 : OWNER
 	 * 변경이력 :
 	 * @return
-	 * Method 설명 : 게시글 답글 응답 화면
+	 * Method 설명 : 게시글 답글 응답 화면 테스트
 	 * @throws Exception 
 	 */
 	@Test
@@ -255,7 +250,7 @@ public class NoticeControllerTest extends ControllerTestEnv{
 	* @param notiId
 	* @param model
 	* @return
-	* Method 설명 : 사용자 수정 요청화면
+	* Method 설명 : 사용자 수정 요청화면 테스트
 	 * @throws Exception 
 	*/
 	@Test
@@ -281,7 +276,7 @@ public class NoticeControllerTest extends ControllerTestEnv{
 	 * @param notiId
 	 * @param model
 	 * @return
-	 * Method 설명 : 사용자 수정 응답화면
+	 * Method 설명 : 사용자 수정 응답화면 테스트
 	 * @throws Exception 
 	 */
 	@Test

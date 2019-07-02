@@ -81,22 +81,43 @@ public class PartUtil {
 	* Method 설명 : multipartfile 배열을 매개로 받아서 단일/ 다중업로드 파일을 처리하는 메서드
 	*/
 	public static List<UploadFileVO> getUploadFileList(MultipartFile[] files, int notiId){
+		
+		// 첨부파일을 담을 리스트 생성
 		List<UploadFileVO> uploadFileList = new ArrayList<UploadFileVO>();
+		
+		// 첨부파일의 갯수만큼 반복
 		for (MultipartFile file : files) {
-			String fileName =  file.getOriginalFilename();
-			 String ext = PartUtil.getExt(fileName); 
-			 String sp = File.separator;
-			 Map<String, Object> resultMap = PartUtil.setMkdir(); 
-			 String uploadPath = (String)resultMap.get("uploadPath");
-			 String filePath = uploadPath + sp + UUID.randomUUID().toString() + ext; 
-			 String fileId = filePath;
-			 File uploadfile = new File(filePath);
-			 try {
-				 file.transferTo(uploadfile);
-			 } catch (IllegalStateException | IOException e) {
-				 e.printStackTrace();
-			 }
-			 UploadFileVO uploadFile = new UploadFileVO(fileId, notiId, uploadPath, fileName);
+			
+			// 첨부파일 이름 얻기
+			String fileName =  file.getOriginalFilename(); 
+			
+			// 첨부파일 확장자 얻기
+			String ext = PartUtil.getExt(fileName); 
+			
+			String sp = File.separator;
+			
+			// 첨부파일을 저장할 폴더 생성
+			Map<String, Object> resultMap = PartUtil.setMkdir(); 
+			
+			// 폴더의 경로
+			String uploadPath = (String)resultMap.get("uploadPath");
+			
+			// 폴더 경로 + 파일의 이름 + 확장자
+			String filePath = uploadPath + sp + UUID.randomUUID().toString() + ext; 
+			
+			// 파일객체를 생성하고 파일의 경로를 지정한다.
+			File uploadfile = new File(filePath);
+			
+			try {
+			 file.transferTo(uploadfile); // 해당 위치에 파일 저장
+			} catch (IllegalStateException | IOException e) {
+			 e.printStackTrace();
+			}
+			
+			// DB에 저장할 파일 정보를 담은 VO객체
+			UploadFileVO uploadFile = new UploadFileVO(filePath, notiId, uploadPath, fileName);
+			
+			// VO객체를 리스트에 담는다.
 			uploadFileList.add(uploadFile);
 		}
 		return uploadFileList;

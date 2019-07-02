@@ -13,6 +13,7 @@ public class UploadFileDao implements IUploadFileDao{
 
 	@Resource(name = "sqlSession")
 	SqlSessionTemplate sqlSession;
+	
 	/**
 	* Method : insertUploadFile
 	* 작성자 : PC25
@@ -51,6 +52,7 @@ public class UploadFileDao implements IUploadFileDao{
 	public UploadFileVO getFileVo(String fileId) {
 		return sqlSession.selectOne("uploadFile.getFileVo", fileId);
 	}
+	
 	/**
 	* Method : dbDeleteFile
 	* 작성자 : PC25
@@ -59,7 +61,6 @@ public class UploadFileDao implements IUploadFileDao{
 	* @return
 	* Method 설명 : 게시글 수정할때 DB에 있는 그전의 첨부파일 내역을 삭제한다.(실제 폴더에서 삭제되지는 않음)
 	*/
-
 	@Override
 	public int dbDeleteFile(UploadFileVO uploadFileVo) {
 		return sqlSession.delete("uploadFile.deleteUploadFile", uploadFileVo);

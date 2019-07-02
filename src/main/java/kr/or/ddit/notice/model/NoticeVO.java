@@ -19,26 +19,6 @@ public class NoticeVO {
 	private int rn; // 삭제여부에 따른 게시글의 번호
 	private int groupId; // 최상위 부모 컬럼 번호
 	private int lv; 
-	
-//	private String selected;
-//	private String search;
-//	
-//	
-//	public String getSelected() {
-//		return selected;
-//	}
-//
-//	public void setSelected(String selected) {
-//		this.selected = selected;
-//	}
-//
-//	public String getSearch() {
-//		return search;
-//	}
-//
-//	public void setSearch(String search) {
-//		this.search = search;
-//	}
 
 	public int getLv() {
 		return lv;
@@ -72,10 +52,18 @@ public class NoticeVO {
 		this.rn = rn;
 	}
 
-	public NoticeVO() {
-		// TODO Auto-generated constructor stub
-	}
+	// 기본 생성자
+	public NoticeVO() {	}
 
+	/**
+	 * 게시글을 작성할때 사용하는 생성자
+	 * @param notiId 게시글 아이디
+	 * @param userId 작성자 아이디
+	 * @param title 제목
+	 * @param content 내용
+	 * @param id 게시판 아이디
+	 * @param groupId 최상위 부모 게시글 아이디
+	 */
 	public NoticeVO(int notiId, String userId, String title, String content,
 			  int id, int groupId) {
 		super();
@@ -86,13 +74,29 @@ public class NoticeVO {
 		this.id = id;
 		this.groupId = groupId;
 	}
-
+	
+	/**
+	 * 게시글을 수정할때 사용하는 생성자
+	 * @param notiId 게시글 아이디
+	 * @param title 제목
+	 * @param content 내용
+	 */
 	public NoticeVO(int notiId, String title, String content) {
 		this.notiId = notiId;
 		this.title = title;
 		this.content = content;
 	}
 
+	/**
+	 * 답글을 작성할때 사용하는 생성자
+	 * @param createNotiId 새로 생길 게시글 아이디
+	 * @param userId 작성자 아이디
+	 * @param title 제목
+	 * @param content 내용
+	 * @param parentId 답글의 부모 게시글 아이디
+	 * @param id 게시판 아이디
+	 * @param groupId 최상위 부모 게시글 아이디
+	 */
 	public NoticeVO(int createNotiId, String userId, String title,
 			String content, int parentId, int id, int groupId) {
 		this.notiId = createNotiId;
@@ -168,7 +172,5 @@ public class NoticeVO {
 				+ ", parentId=" + parentId + ", id=" + id + ", del_yn="
 				+ del_yn + "]";
 	}
-
-	
 	
 }

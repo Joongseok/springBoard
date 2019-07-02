@@ -14,6 +14,13 @@ public class LoginControllerTest extends ControllerTestEnv{
 	
 	
 
+	/**
+	* Method : loginViewNotLoginedTest
+	* 작성자 : PC25
+	* 변경이력 :
+	* @throws Exception
+	* Method 설명 : 로그인 실패 테스트
+	*/
 	@Test
 	public void loginViewNotLoginedTest() throws Exception {
 		/***Given***/
@@ -26,6 +33,13 @@ public class LoginControllerTest extends ControllerTestEnv{
 	}
 	
 
+	/**
+	* Method : loginProcessSucessTest
+	* 작성자 : PC25
+	* 변경이력 :
+	* @throws Exception
+	* Method 설명 : 로그인 성공 테스트
+	*/
 	@Test
 	public void loginProcessSucessTest() throws Exception{
 		String userId = "brown";

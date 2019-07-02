@@ -14,6 +14,7 @@ public class Noti_CommentService implements INoti_CommentService{
 	
 	@Resource(name = "noti_commentDao")
 	private INoti_CommentDao ntcDao;
+	
 	/**
 	* Method : commentAllCnt
 	* 작성자 : PC25
@@ -26,28 +27,17 @@ public class Noti_CommentService implements INoti_CommentService{
 		
 		return ntcDao.commentAllCnt();
 	}
+	
 	/**
 	* Method : commentMaxId
 	* 작성자 : PC25
 	* 변경이력 :
 	* @return
-	* Method 설명 : 댓글의 마지막 번호
+	* Method 설명 : 댓글의 마지막 번호 + 1
 	*/
 	@Override
 	public int commentMaxId() {
 		return ntcDao.commentMaxId();
-	}
-	/**
-	* Method : insertComment
-	* 작성자 : PC25
-	* 변경이력 :
-	* @param ntcVo
-	* @return
-	* Method 설명 : 댓글 작성
-	*/
-	@Override
-	public int insertComment(Noti_commentVO ntcVo) {
-		return ntcDao.insertComment(ntcVo);
 	}
 	
 	/**
@@ -62,6 +52,20 @@ public class Noti_CommentService implements INoti_CommentService{
 	public List<Noti_commentVO> commentList(int notiId) {
 		return ntcDao.commentList(notiId);
 	}
+
+	/**
+	 * Method : insertComment
+	 * 작성자 : PC25
+	 * 변경이력 :
+	 * @param ntcVo
+	 * @return
+	 * Method 설명 : 댓글 작성
+	 */
+	@Override
+	public int insertComment(Noti_commentVO ntcVo) {
+		return ntcDao.insertComment(ntcVo);
+	}
+	
 	/**
 	* Method : deleteComment
 	* 작성자 : PC25
@@ -73,10 +77,11 @@ public class Noti_CommentService implements INoti_CommentService{
 	@Override
 	public int deleteComment(List<Noti_commentVO> ntcList) {
 		int deleteCntSum = 0;
-		for(Noti_commentVO ntcVo : ntcList){
-			int deleteCnt = ntcDao.deleteComment( ntcVo.getId());
-			deleteCntSum += deleteCnt;
-		}
+		if(ntcList != null && ntcList.size() > 0)
+			for(Noti_commentVO ntcVo : ntcList){
+				int deleteCnt = ntcDao.deleteComment( ntcVo.getId());
+				deleteCntSum += deleteCnt;
+			}
 		return deleteCntSum;
 	}
 	
@@ -86,7 +91,7 @@ public class Noti_CommentService implements INoti_CommentService{
 	* 변경이력 :
 	* @param ntcId
 	* @return
-	* Method 설명 : ID에 해당하는 한개의 댓글 삭제
+	* Method 설명 : 해당 ID의 댓글 삭제
 	*/
 	@Override
 	public int deleteCmt(int ntcId) {

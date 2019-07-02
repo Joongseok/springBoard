@@ -10,47 +10,39 @@
 }
 </style>
 <script>
-$(document).ready(function () {
-	
-	if($("#userId").val() == ""){
-		alert("로그인을 하지 않았습니다.")
-		$("#frm").attr("action", "<%=request.getContextPath()%>/login/login.jsp");
-					$("#frm").submit();
-					return;
-				}
+	$(document).ready(function () {
+		if ($(".update_use_yn").val() == "true") {
+			$(".updateUse_yn").val("true");
+		}
 
-				if ($(".update_use_yn").val() == "true") {
-					$(".updateUse_yn").val("true");
-				}
+		$("#createClick").on("click", function() {
+			if ($("#create_use_yn").val() == "true") {
 
-				$("#createClick").on("click", function() {
-					if ($("#create_use_yn").val() == "true") {
-
-						$("#use_yn").val("true");
-					}
-					if ($("#createBoardName").val() == "") {
-						alert("게시판 이름을 입력해주세요");
-						return;
-					} else {
-						$("#createFrm").submit();
-					}
-				})
-				$('#create_use_yn').change(function() {
-					if ($(this).val == "") {
-						$(this).val("true");
-					}
-					var option = $(this).val();
-					$("#use_yn").val(option);
-				});
-				$('.update_use_yn').change(function() {
-					if ($(this).val == "") {
-						$(this).val("true");
-					}
-					var option = $(this).val();
-					alert($(this).val())
-					$(".updateUse_yn").val(option);
-				});
-			})
+				$("#use_yn").val("true");
+			}
+			if ($("#createBoardName").val() == "") {
+				alert("게시판 이름을 입력해주세요");
+				return;
+			} else {
+				$("#createFrm").submit();
+			}
+		})
+		$('#create_use_yn').change(function() {
+			if ($(this).val == "") {
+				$(this).val("true");
+			}
+			var option = $(this).val();
+			$("#use_yn").val(option);
+		});
+		$('.update_use_yn').change(function() {
+			if ($(this).val == "") {
+				$(this).val("true");
+			}
+			var option = $(this).val();
+			alert($(this).val())
+			$(".updateUse_yn").val(option);
+		});
+	})
 </script>
 <div class="row">
 	<div class="col-sm-8 blog-main">

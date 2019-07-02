@@ -6,24 +6,44 @@ import java.util.Map;
 import kr.or.ddit.notice.model.NoticeVO;
 
 public interface INoticeDao {
+	
 	/**
 	* Method : noticeList
 	* 작성자 : PC25
 	* 변경이력 :
+	* @param pageMap
 	* @return
-	* Method 설명 : 게시판에 해당하는 게시글만 조회
+	* Method 설명 : 검색 기능을 포함한 계층형 게시글 페이징 리스트
 	*/
 	List<NoticeVO> noticePagingList(Map<String, Object>pageMap);
 	
-//	/**
-//	* Method : noticeCnt
-//	* 작성자 : PC25
-//	* 변경이력 :
-//	* @param id
-//	* @return
-//	* Method 설명 : 해당 게시판의 게시글 수
-//	*/
-//	int noticeCnt(int id);
+	/**
+	 * Method : noticeMaxId
+	 * 작성자 : PC25
+	 * 변경이력 :
+	 * @return
+	 * Method 설명 : 게시글의 가장 마지막 번호  +1
+	 */
+	int noticeMaxId();
+	
+	/**
+	* Method : noticeSearchCnt
+	* 작성자 : PC25
+	* 변경이력 :
+	* @param searchMap
+	* @return
+	* Method 설명 : 검색한  결과에 해당하는 게시글 의 수
+	*/
+	int noticeSearchCnt(Map<String, Object> searchMap);
+	
+	/**
+	 * Method : noticeAllCnt
+	 * 작성자 : PC25
+	 * 변경이력 :
+	 * @return
+	 * Method 설명 : 모든게시판의 게시글을 합친수
+	 */
+	int noticeAllCnt();
 	
 	/**
 	* Method : insertNotice
@@ -34,15 +54,16 @@ public interface INoticeDao {
 	* Method 설명 : 게시글 작성
 	*/
 	int insertNotice(NoticeVO noticeVo);
-	
+
 	/**
-	* Method : noticeAllCnt
+	* Method : replyNotice
 	* 작성자 : PC25
 	* 변경이력 :
+	* @param createNoticeVo
 	* @return
-	* Method 설명 : 모든게시판의 게시글을 합친수
+	* Method 설명 : 답글
 	*/
-	int noticeAllCnt();
+	int replyNotice(NoticeVO createNoticeVo);
 
 	/**
 	* Method : getNotice
@@ -50,18 +71,9 @@ public interface INoticeDao {
 	* 변경이력 :
 	* @param notiId
 	* @return
-	* Method 설명 : 게시글 선택 조회
+	* Method 설명 : 아이디에 해당하는 게시글 정보
 	*/
 	NoticeVO getNotice(int notiId);
-
-	/**
-	* Method : noticeMaxId
-	* 작성자 : PC25
-	* 변경이력 :
-	* @return
-	* Method 설명 : 게시글의 가장 마지막 번호  +1
-	*/
-	int noticeMaxId();
 
 	/**
 	* Method : updateNotice
@@ -83,33 +95,4 @@ public interface INoticeDao {
 	*/
 	int deleteNotice(int notiId);
 
-	/**
-	* Method : replyNotice
-	* 작성자 : PC25
-	* 변경이력 :
-	* @param createNoticeVo
-	* @return
-	* Method 설명 : 답글
-	*/
-	int replyNotice(NoticeVO createNoticeVo);
-
-	/**
-	* Method : noticeSearchPagingList
-	* 작성자 : PC25
-	* 변경이력 :
-	* @param searchMap
-	* @return
-	* Method 설명 : 게시글 검색 페이징 처리
-	*/
-	List<NoticeVO> noticeSearchPagingList(Map<String, Object> searchMap);
-
-	/**
-	* Method : noticeSearchCnt
-	* 작성자 : PC25
-	* 변경이력 :
-	* @param searchMap
-	* @return
-	* Method 설명 : 검색한  결과에 해당하는 게시글 의 수
-	*/
-	int noticeSearchCnt(Map<String, Object> searchMap);
 }

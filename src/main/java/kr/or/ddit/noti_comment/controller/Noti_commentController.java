@@ -33,8 +33,13 @@ public class Noti_commentController  {
 	public String noti_commentCreate(int cntNotiId, String comment
 			, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		
+		// 세션에 담긴 유저의 아이디
 		String userId = ((UserVO)request.getSession().getAttribute("USER_INFO")).getUserId();
+		
+		// 댓글의 개수가 0이면 임의로 1을 없으면 가장 높은 번호 + 1
 		int id = noti_commentService.commentAllCnt() == 0 ? 1 : noti_commentService.commentMaxId(); 
+		
+		// 댓글 생성
 		Noti_commentVO ntcVo = new Noti_commentVO(id, cntNotiId, userId, comment);
 		noti_commentService.insertComment(ntcVo);
 		
@@ -58,6 +63,7 @@ public class Noti_commentController  {
 	public String deleteComment(int notiId, int id
 				,RedirectAttributes redirectAttributes , HttpServletRequest request) {
 		
+		// 댓글 삭제
 		noti_commentService.deleteCmt(id);
 		
 		redirectAttributes.addAttribute("notiId", notiId);

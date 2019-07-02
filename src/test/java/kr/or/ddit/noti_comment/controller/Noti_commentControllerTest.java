@@ -22,7 +22,7 @@ public class Noti_commentControllerTest extends ControllerTestEnv{
 	* @param comment
 	* @param request
 	* @return
-	* Method 설명 : 댓글 등록
+	* Method 설명 : 댓글 등록 테스트
 	 * @throws Exception 
 	*/
 	@Test
@@ -50,8 +50,8 @@ public class Noti_commentControllerTest extends ControllerTestEnv{
 	* @param notiId
 	* @param id
 	* @param request
-	* @return
-	* Method 설명 : 댓글 삭제
+	* @return 
+	* Method 설명 : 댓글 삭제 테스트
 	 * @throws Exception 
 	*/
 	@Test

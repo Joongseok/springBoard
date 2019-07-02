@@ -53,7 +53,7 @@ public class UploadFileService implements IUploadFileService{
 	* 변경이력 :
 	* @param fileId
 	* @return
-	* Method 설명 : 아이디에 해당하는 파일 vo가져오기
+	* Method 설명 : 파일 아이디에 해당하는 파일 정보
 	*/
 	@Override
 	public UploadFileVO getFileVo(String fileId) {

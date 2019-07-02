@@ -47,7 +47,7 @@
 </update>
 
 
-<!-- 하나의 댓글 삭제 -->
+<!-- 해당 ID의 댓글 삭제 -->
 <update id="deleteCmt" parameterType="int">
 	UPDATE NOTI_COMMENT
 	SET  DEL_YN = 'false'

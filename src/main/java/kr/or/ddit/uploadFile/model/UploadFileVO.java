@@ -7,10 +7,15 @@ public class UploadFileVO {
 	private String path;    //첨부파일경로
 	private String fileName;//원본파일명
 	
-	public UploadFileVO() {
-		// TODO Auto-generated constructor stub
-	}
+	public UploadFileVO() {	}
 
+	
+	/**
+	 * @param fileId 첨부파일 아이디
+	 * @param notiId 게시글 아이디
+	 * @param path 첨부파일 경로
+	 * @param fileName 원본 파일명
+	 */
 	public UploadFileVO(String fileId, int notiId, String path, String fileName) {
 		super();
 		this.fileId = fileId;

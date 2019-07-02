@@ -14,10 +14,14 @@ public class Noti_commentVO {
 	private String content; //내용
 	private String del_yn;	//삭제여부
 	
-	public Noti_commentVO() {
-		// TODO Auto-generated constructor stub
-	}
+	public Noti_commentVO() {}
 
+	/**
+	 * @param id 댓글 아이디
+	 * @param notiId 댓글을 작성할 게시글 아이디
+	 * @param userId 작성자 아이디
+	 * @param content 댓글 내용
+	 */
 	public Noti_commentVO(int id, int notiId, String userId, String content) {
 		super();
 		this.id = id;

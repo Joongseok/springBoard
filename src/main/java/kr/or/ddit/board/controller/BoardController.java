@@ -1,7 +1,5 @@
 package kr.or.ddit.board.controller;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,7 +18,6 @@ public class BoardController {
 	@Resource(name = "boardService")
 	private IBoardService boardService;
 	
-	
 	/**
 	* Method : boardManager
 	* 작성자 : PC25
@@ -29,21 +26,14 @@ public class BoardController {
 	* @return
 	* Method 설명 : 게시판 메인
 	*/
-	@RequestMapping(path = "/boardManager", method = RequestMethod.GET)
+	@RequestMapping("/boardManager")
 	public String boardManager(HttpServletRequest request) {
-		
-		// 사용중인 게시판 리스트
-		List<BoardVO> boardList = boardService.boardList();
-		
-		if(boardList != null) {
-			request.getSession().setAttribute("boardList", boardList);
-			request.getSession().setAttribute("boardAllList", boardService.boardAllList());
-		}
 		
 		return "tiles.boardManager";
 	}
 	
 	
+
 	/**
 	* Method : createBoard
 	* 작성자 : PC25
@@ -52,21 +42,23 @@ public class BoardController {
 	* @param use_yn
 	* @param request
 	* @return
-	* Method 설명 : 게시판 생성
+	* Method 설명 :게시판 생성
 	*/
 	@RequestMapping(path = "/createBoard", method = RequestMethod.POST)
 	public String createBoard(String createBoardName, String use_yn, HttpServletRequest request) {
 		
+		// 게시판 전체 수 + 1
 		int id = boardService.boardCnt();
+		
+		// 로그인 할때 세션에 담겨있던 사용자 아이디
 		String userId = ((UserVO)request.getSession().getAttribute("USER_INFO")).getUserId();
 		BoardVO boardVo = new BoardVO(id, userId, createBoardName, use_yn);
 		
+		// 게시판 등록
 		boardService.insertBoard(boardVo);
 		
-		request.getSession().setAttribute("boardList", boardService.boardList());
-		request.getSession().setAttribute("boardAllList", boardService.boardAllList());
-		
 		return "redirect:/board/boardManager";
+		
 	}
 	
 	/**
@@ -75,25 +67,21 @@ public class BoardController {
 	* 변경이력 :
 	* @param id
 	* @param use_yn
-	* @param request
 	* @return
 	* Method 설명 : 게시판 사용 여부 수정
 	*/
 	@RequestMapping(path = "/updateBoard", method = RequestMethod.POST)
-	public String updateBoard(int id, String updateUse_yn, HttpServletRequest request) {
+	public String updateBoard(int id, String updateUse_yn) {
 		
-//		int boardId = Integer.parseInt(id);
-		
+		// 게시판 아이디에 해당하는 게시판 정보 
 		BoardVO boardVo = boardService.getBoard(id);
+		
+		// 게시판의 사용여부를 셋팅
 		boardVo.setUse_yn(updateUse_yn);
 		
+		// 게시판 사용여부 수정
 		boardService.updateBoard(boardVo);
-		request.getSession().setAttribute("boardList", boardService.boardList());
-		request.getSession().setAttribute("boardAllList", boardService.boardAllList());
 		
 		return "redirect:/board/boardManager";
 	}
-	
-	
-	
 }

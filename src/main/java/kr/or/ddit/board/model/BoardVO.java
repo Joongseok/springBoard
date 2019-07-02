@@ -17,6 +17,12 @@ public class BoardVO {
 	public BoardVO() {}
 	
 	// 생성용
+	/**
+	 * @param id 게시판 아이디
+	 * @param userId 사용자 아이디
+	 * @param name 게시판 이름
+	 * @param use_yn 사용여부
+	 */
 	public BoardVO(int id, String userId, String name, String use_yn) {
 		super();
 		this.id = id;

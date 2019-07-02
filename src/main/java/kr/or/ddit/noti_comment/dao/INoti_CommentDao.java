@@ -11,7 +11,7 @@ public interface INoti_CommentDao {
 	* 작성자 : PC25
 	* 변경이력 :
 	* @return
-	* Method 설명 : 댓글 전체 수 
+	* Method 설명 : 전체 댓글 수
 	*/
 	int commentAllCnt();
 
@@ -25,16 +25,6 @@ public interface INoti_CommentDao {
 	int commentMaxId();
 
 	/**
-	* Method : isertComment
-	* 작성자 : PC25
-	* 변경이력 :
-	* @param ntcVo
-	* @return
-	* Method 설명 : 댓글 작성
-	*/
-	int insertComment(Noti_commentVO ntcVo);
-
-	/**
 	* Method : commentList
 	* 작성자 : PC25
 	* 변경이력 :
@@ -43,6 +33,16 @@ public interface INoti_CommentDao {
 	* Method 설명 : 해당게시글의 댓글 리스트
 	*/
 	List<Noti_commentVO> commentList(int notiId);
+	
+	/**
+	 * Method : isertComment
+	 * 작성자 : PC25
+	 * 변경이력 :
+	 * @param ntcVo
+	 * @return
+	 * Method 설명 : 댓글 작성
+	 */
+	int insertComment(Noti_commentVO ntcVo);
 
 	/**
 	* Method : deleteComment

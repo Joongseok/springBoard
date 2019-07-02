@@ -1,6 +1,7 @@
 package kr.or.ddit.notice.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,42 +40,6 @@ public class NoticeDaoTest extends LogicTestEnv{
 		assertEquals(10, noticeList.size());
 	}
 	
-//	/**
-//	 * Method : noticeSearchPagingListTest
-//	 * 작성자 : PC25
-//	 * 변경이력 :
-//	 * @return
-//	 * Method 설명 : 게시글 검색 페이징 처리 테스트
-//	 */
-//	@Test
-//	public void noticeSearchPagingListTest() {
-//		/***Given***/
-//		Map<String, Object> searchMap = new HashMap<String, Object>();
-//		/***When***/
-//		searchMap.put("id", 1);
-//		searchMap.put("page", 1);
-//		searchMap.put("pageSize", 10);
-//		searchMap.put("selected", "title");
-//		searchMap.put("search", 1);
-//		List<NoticeVO> noticeList =  noticeDao.noticeSearchPagingList(searchMap);
-//		/***Then***/
-//		assertEquals(5, noticeList.size());
-//	}
-	
-//	/**
-//	* Method : noticeCntTest
-//	* 작성자 : PC25
-//	* 변경이력 :
-//	* Method 설명 : 게시판의 번호에 해당하는 게시글을 출력하는 메서드 테스트
-//	*/
-//	@Test
-//	public void noticeCntTest() {
-//		/***Given***/
-//		/***When***/
-//		int noticeCnt = noticeDao.noticeCnt(1);
-//		/***Then***/
-//		assertEquals(13, noticeCnt);
-//	}
 	
 	/**
 	* Method : insertNoticeTest
@@ -111,7 +76,7 @@ public class NoticeDaoTest extends LogicTestEnv{
 	* Method : getNoticeTest
 	* 작성자 : PC25
 	* 변경이력 :
-	* Method 설명 : 게시글 선택조회
+	* Method 설명 : 게시글 선택조회 테스트
 	*/
 	@Test
 	public void getNoticeTest() {
@@ -127,7 +92,7 @@ public class NoticeDaoTest extends LogicTestEnv{
 	* Method : noticeMaxIdTest
 	* 작성자 : PC25
 	* 변경이력 :
-	* Method 설명 : 게시글의 마지막 번호
+	* Method 설명 : 게시글의 마지막 번호 테스트
 	*/
 	@Test
 	public void noticeMaxIdTest() {
@@ -142,7 +107,7 @@ public class NoticeDaoTest extends LogicTestEnv{
 	* Method : updateNoticeTest
 	* 작성자 : PC25
 	* 변경이력 :
-	* Method 설명 : 게시글 수정
+	* Method 설명 : 게시글 수정 테스트
 	*/
 	@Test
 	public void updateNoticeTest() {
@@ -158,7 +123,7 @@ public class NoticeDaoTest extends LogicTestEnv{
 	* Method : deleteNoticeTest
 	* 작성자 : PC25
 	* 변경이력 :
-	* Method 설명 : 게시글 삭제
+	* Method 설명 : 게시글 삭제 테스트
 	*/
 	@Test
 	public void deleteNoticeTest() {
@@ -173,7 +138,7 @@ public class NoticeDaoTest extends LogicTestEnv{
 	* Method : replyNoticeTest
 	* 작성자 : PC25
 	* 변경이력 :
-	* Method 설명 : 답글
+	* Method 설명 : 답글 테스트
 	*/
 	@Test
 	public void replyNoticeTest() {
