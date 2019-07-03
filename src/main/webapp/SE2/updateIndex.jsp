@@ -66,6 +66,7 @@ $(document).ready(function() {
 			alert($(this).prev().remove())
 			$(this).prev().attr("name", "deleteFileId");
 			cnt += 1;
+			alert(cnt)
 		}
 		if($(this).prev().html() == ""){
 			$(this).css("display", "none");

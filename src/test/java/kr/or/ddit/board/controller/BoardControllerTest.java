@@ -17,8 +17,6 @@ public class BoardControllerTest extends ControllerTestEnv{
 	* Method : boardManager
 	* 작성자 : PC25
 	* 변경이력 :
-	* @param request
-	* @return
 	* Method 설명 : 게시판 메인 테스트
 	 * @throws Exception 
 	*/
@@ -37,10 +35,6 @@ public class BoardControllerTest extends ControllerTestEnv{
 	* Method : createBoard
 	* 작성자 : PC25
 	* 변경이력 :
-	* @param createBoardName
-	* @param use_yn
-	* @param request
-	* @return
 	* Method 설명 : 게시판 생성 테스트
 	 * @throws Exception 
 	*/
@@ -65,8 +59,6 @@ public class BoardControllerTest extends ControllerTestEnv{
 	 * Method : boardManager
 	 * 작성자 : PC25
 	 * 변경이력 :
-	 * @param request
-	 * @return
 	 * Method 설명 : 게시판 메인 테스트
 	 * @throws Exception 
 	 */

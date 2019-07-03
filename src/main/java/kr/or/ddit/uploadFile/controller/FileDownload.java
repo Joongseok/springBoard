@@ -29,10 +29,10 @@ public class FileDownload extends AbstractView {
 	* @param response
 	* @throws Exception
 	* Method 설명 : 
-	* 				사용자가 게시글 상세보기 화면에서 첨부 파일 다운로드를 클릭했을때
-	* 				jsp에서 noticeController에 매핑된 path로 요청이 가고
-	* 				application-context.xml 에서 설정한 BeanNameViewResolver를 이용하여
-	* 				해당 요청을 받은 컨트롤러는 application-context에서 미리 만들어져있는 bean아이디를 리턴 
+	* 				사용자가 NoticeDetail.jsp에서 첨부 파일 다운로드를 클릭했을때
+	* 				noticeController에 매핑된 path로 요청이 가고
+	* 				application-context.xml 에서 설정한 BeanNameViewResolver를 통해
+	* 				해당 요청을 받은 컨트롤러는 application-context에 미리 만들어져있는 bean아이디를 리턴 
 	* 				Bean아이디와 매칭되는 해당 클래스로 이동한다.
 	*/
 	@Override
